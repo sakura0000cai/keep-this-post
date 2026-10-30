@@ -1,4 +1,6 @@
 /* 学校官网：仿 2010 年前后的院校门户，红色主调 */
+body{margin:0;background:#fff}
+*{box-sizing:border-box}
 .sch{width:1000px;margin:0 auto;background:#fff;font:12px/1.9 SimSun,"宋体",serif;color:#333}
 .sch a{color:#333;text-decoration:none}
 .sch a:hover{color:#c3120f;text-decoration:underline}
@@ -76,7 +78,3 @@
 .sub-nav{list-style:none;margin:0;padding:0}
 .sub-nav li{border-bottom:1px dashed #ddd;padding:5px 0 5px 10px;font-size:13px}
 .sub-nav li::before{content:"» ";color:#c3120f}
-/* 浏览器错误页 */
-.errpage{max-width:640px;margin:40px auto;padding:0 20px;font:13px/1.9 "Microsoft YaHei",SimSun,sans-serif;color:#333}
-.errpage h1{font-size:20px;color:#1a3e7a;border-bottom:1px solid #9cb3d4;padding-bottom:6px}
-.errpage li{margin:4px 0}

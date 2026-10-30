@@ -1,7 +1,6 @@
 /* 榕园社区页面。版式参考 2000 年代中文社区：左侧栏目栏、广告位、分类广告、帖子列表。 */
 (function(){
-  const {a,esc,flag}=G,F=G.forum,B=p=>'/bbs/'+p;
-  const HOST='http://bbs.lcqz.edu.cn/';
+  const {a,esc,flag}=G,F=G.forum,B=p=>'/'+p;
   const me='chenmo_2019';
   const logged=()=>flag('loggedIn');
   const user=u=>a(B('profile/'+encodeURIComponent(u)),esc(u));
@@ -19,6 +18,7 @@
         ${L('pm','-短消息'+(logged()&&unread()?` <i>(${unread()})</i>`:''))}
         ${L('search','-帖子查询')}
         ${L('board/grad','-毕业留言','hl')}
+        <a href="../">-学校主页</a>
         <span class="side-sec">| 榕园主版 |</span>
         ${F.boards.map(([id,n])=>L('board/'+id,'.'+n)).join('')}
         ${flag('album')?L('board/vault','.旧物寄存处','odd'):''}
@@ -35,7 +35,7 @@
     </main></div>`;
   }
   const topbar=(name)=>`<div class="bbs-topbar"><b>[${name}]</b><span>${a(B('board/grad'),'榕园拾英','y')}${a(B('thread/rule'),'发帖标准暨管理规定','y')}${a(B('search'),'帖子查询')}</span></div>`;
-  const page=(name,main,extra)=>({title:name+' - 榕园社区',url:HOST+extra,html:wrap(main,topbar(name))});
+  const page=(name,main)=>({title:name+' - 榕园社区',html:wrap(main,topbar(name))});
 
   // —— 版块列表 ——
   G.bbs.index=()=>G.bbs.board('zatan');
@@ -60,8 +60,7 @@
         ${a(B('thread/c2'),'◎广播站点歌留言')}　${a(B('thread/c1'),'◎摄影社活动时间与地点')}　<a class="r">◎“我的高中”征文活动 <i class="hot">hot</i></a></div></div>
       <table class="tlist"><tr><th></th><th>论　　题</th><th>作者</th><th>访问</th><th>回复</th><th>更新日期</th></tr>${rows}</table>
       <div class="bbs-pager">共 ${list.length} 条　[1] <a>2</a> <a>3</a> <a>下一页</a>　<small>（历史分页数据未迁移）</small></div>`;
-    if(id==='vault')G.note('vault','论坛侧栏出现了隐藏版块【旧物寄存处】，许清在里面寄存了东西。');
-    return {title:name+' - 榕园社区',url:HOST+'list.asp?item='+id,html:wrap(main,topbar(name))};
+    return page(name,main);
   };
 
   // —— 帖子 ——
@@ -79,26 +78,21 @@
     if(!t||!visibleBoard(t.board))return G.bbs.notfound();
     if(t.special==='mystery')return mystery(t);
     if(t.special==='vault')return vault(t);
-    if(id==='1114')G.note('search','2019-11-14 18:05 许清发帖找知夏：“她五点多出了教室就没回来”。');
-    if(id==='l1')G.note('notebook','知夏的数学笔记本这周第三次不见，被撕了几页。许清：“这不是你的错。”');
-    if(id==='c1')G.note('photoclub','摄影社每周四 17:00—18:30 在旧实验楼三楼摄影室活动。');
     const main=threadHead(t,t.views,t.posts.length-1)+t.posts.map((x,i)=>postHtml(x,i)).join('')+
       `<div class="t-foot">${t.locked?`<span class="r">${t.locked}</span>`:`[${a(B('post'),'回复本帖')}]`}　[${a(B('board/'+t.board),'返回列表')}]</div>`;
-    return page(F.boardName(t.board),main,'art.asp?id='+t.id);
+    return page(F.boardName(t.board),main);
   };
 
   function mystery(t){
-    G.hum(true);
     if(!logged()){
-      return page('校园杂谈',threadHead(t,0,0)+`<div class="blocked">【提示】该帖已于 2019-11-15 被管理员屏蔽，仅原作者登录后可见。<br>屏蔽理由：内容不实，造成恐慌。<br><br>${a(B('login'),'[原作者登录]')}</div>`,'art.asp?id=1113');
+      return page('校园杂谈',threadHead(t,0,0)+`<div class="blocked">【提示】该帖已于 2019-11-15 被管理员屏蔽，仅原作者登录后可见。<br>屏蔽理由：内容不实，造成恐慌。<br><br>${a(B('login'),'[原作者登录]')}</div>`);
     }
-    G.note('mystery','2019-11-13 23:58，我发了《明天有人会死》：“去看那张合照。不要看学校挂出来的那张。”我不记得写过它。');
     const first={a:'chenmo_2019',t:'2019-11-13 23:58',body:'明天有人会死。\n\n我不知道我为什么要写这个。这不是玩笑。\n\n去看那张合照。不要看学校挂出来的那张。'};
     const foot=flag('archive')
       ?`<div class="edit-note glitch">[本帖最后由 <b>guest_0714</b> 于 <b>2026-11-14 23:17</b> 编辑]　${a(B('history/1113'),'[查看编辑记录]')}</div>`
       :`<div class="edit-note">[本帖已于 2019-11-15 08:02 被管理员屏蔽：内容不实，造成恐慌。仅作者本人可见]</div>`;
     const main=threadHead(t,0,G.state.chat.length)+postHtml(first,0)+foot+(flag('draftOpen')?G.story.thread():'');
-    return page('校园杂谈',main,'art.asp?id=1113');
+    return page('校园杂谈',main);
   }
 
   function vault(t){
@@ -129,13 +123,11 @@
 我是不是太累了，眼花了。
 你自己去看看吧。</pre></div></div>`;
     const main=threadHead(t,3,0)+postHtml({a:'xuqing',t:'2019-11-16 01:30',html:body},0)+`<div class="t-foot">[本帖仅寄存，不可回复]</div>`;
-    return page('旧物寄存处',main,'art.asp?id=v1');
+    return page('旧物寄存处',main);
   }
 
   G.bbs.history=id=>{
     if(!logged())return G.bbs.login();
-    G.hum(true);G.set('sawHistory');
-    G.note('history','《明天有人会死》的编辑记录：最新一条是 guest_0714 在 2026-11-14 23:17 建的草稿。guest_0714——论坛一直这样称呼我。');
     const rows=[
       ['#4','2026-11-14 23:17','guest_0714','创建草稿（未提交）','<span class="glitch">提交目标：2019-11-13 23:58</span>',`<button data-act="draft" class="mini">继续编辑</button>`],
       ['#3','2019-11-15 08:02','管理员','屏蔽','内容不实，造成恐慌',''],
@@ -146,17 +138,15 @@
       <table class="tlist hist"><tr><th>版本</th><th>时间</th><th>操作人</th><th>操作</th><th>备注</th><th></th></tr>${rows.map((r,i)=>`<tr class="${i%2?'alt':''}">${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>
       <p class="hint-line">提示：草稿提交后，将按“提交目标”时间写入原帖。</p>
       <div class="t-foot">[${a(B('thread/1113'),'返回帖子')}]</div>`;
-    return page('校园杂谈',main,'history.asp?id=1113');
+    return page('校园杂谈',main);
   };
 
   // —— 用户 ——
   G.bbs.profile=(u='')=>{
     const x=F.users[u];
-    if(!x)return page('用户资料','<div class="blocked">该用户不存在或已注销。</div>','user.asp');
+    if(!x)return page('用户资料','<div class="blocked">该用户不存在或已注销。</div>');
     let moods=(F.moods[u]||[]).slice();
     if(u===me&&flag('demoEnd'))moods.unshift(['2019-11-14 08:03','今天放学我哪也不去。<span class="cache">[历史缓存比对：此条在 2026-11-14 23:17 的快照中不存在]</span>']);
-    if(u==='linzx')G.note('linzx','林知夏最后一条心情：2019-11-14 17:21“有人说笔记本在旧实验楼。我去拿一下就回来。”');
-    if(u==='linzx'&&logged())G.note('ticket','知夏说：有个笨蛋把两张晚风乐队的票夹在数学书第 146 页。那是我。');
     const main=`<table class="profile"><tr><td class="pf-l">${G.art.avatar(x.ch,x.color)}<br><b>${esc(u)}</b><br>${x.title}</td>
       <td><table class="pf-t"><tr><th>用户名</th><td>${esc(u)}</td><th>注册日期</th><td>${x.reg}</td></tr>
       <tr><th>头衔</th><td>${x.title}</td><th>积分</th><td>${x.score}</td></tr>
@@ -164,22 +154,22 @@
       <tr><th>签名</th><td colspan="3">${esc(x.sig||'')}</td></tr></table>
       <p>[${a(B('album/'+encodeURIComponent(u)),'TA 的相册')}]　[${a(B('pm'),'发短消息')}]</p></td></tr></table>
       <div class="moods"><div class="recom-h">§最近发言 / 心情</div>${moods.length?moods.map(([t,s])=>`<div class="mood"><span>${t}</span>${s}</div>`).join(''):'<div class="mood">暂无。</div>'}</div>`;
-    return page('用户资料',main,'user.asp?name='+encodeURIComponent(u));
+    return page('用户资料',main);
   };
 
   G.bbs.album=(u='')=>{
     if(!logged())return G.bbs.login('查看相册需要登录。');
-    if(u!=='xuqing')return page('相册',`<div class="blocked">${esc(u)} 的相册为空，或未公开。</div>`,'photo.asp?u='+encodeURIComponent(u));
+    if(u!=='xuqing')return page('相册',`<div class="blocked">${esc(u)} 的相册为空，或未公开。</div>`);
     let main=`<h1 class="t-title">xuqing 的相册 · 2019 文化节</h1>`;
     if(!flag('album'))main+=`<form class="lock center" data-form="album"><p>🔒 该相册已加密。</p><p>密码提示：<b>合照里，少了谁？</b></p><input name="v" placeholder="请输入密码"> <button>打开</button><div class="feedback"></div></form>`;
     else main+=`<div class="photo-frame">${G.art.groupPhoto('original')}</div>
       <p class="caption">20191108_原片.jpg　　上传：2019-11-09<br>xuqing：全班二十个人。第二排左起第七个，是知夏，她替广播站举着牌子。<br>背后那扇门是 B203，我们排练了两个星期的音乐教室。</p>
       <p class="caption">xuqing（2019-11-16 补充）：官网那张，第二排第七个人没有了。她站的地方被修成了一块墙。</p>`;
-    return page('相册',main,'photo.asp?u=xuqing');
+    return page('相册',main);
   };
 
   // —— 登录 / 找回 ——
-  G.bbs.login=(msg='')=>({title:'用户登录 - 榕园社区',url:HOST+'login.asp',html:wrap(`<form class="login" data-form="login"><div class="login-h">用户登录</div>
+  G.bbs.login=(msg='')=>({title:'用户登录 - 榕园社区',html:wrap(`<form class="login" data-form="login"><div class="login-h">用户登录</div>
     ${msg?`<p class="r">${msg}</p>`:''}<label>用户名：<input name="u" autocomplete="off"></label><label>密　码：<input name="p" type="password"></label>
     <p><button>登 录</button>　${a(B('recover'),'忘记密码？')}</p><div class="feedback"></div></form>`,topbar('用户登录'))});
 
@@ -190,21 +180,18 @@
       ${step2?`<p>用户名：<b>chenmo_2019</b></p><p>密码保护问题：<b>我们班第一次站上全校舞台的日子</b><br><small>（请填四位数字：月月日日）</small></p><label>答　案：<input name="ans" maxlength="4" autocomplete="off"></label>`
         :`<p>请输入要找回的用户名。</p><label>用户名：<input name="u" autocomplete="off"></label>`}
       <p><button>下一步</button></p><div class="feedback"></div></form>`;
-    return {title:'找回密码 - 榕园社区',url:HOST+'getpass.asp',html:wrap(main,topbar('找回密码'))};
+    return {title:'找回密码 - 榕园社区',html:wrap(main,topbar('找回密码'))};
   };
 
   // —— 短消息 ——
   G.bbs.pm=(id='')=>{
     if(!logged())return G.bbs.login('请先登录。');
     const m=F.pms.find(x=>x.id===id);
-    if(m){G.state.read[m.id]=1;G.save();
-      if(m.id==='m2')G.note('pm-xu','许清（2019-11-16）：官网合照不是她交的那张；原片在她的相册，密码是被拿掉的那个人的名字。班级空间有名单。');
-      if(m.id==='m4')G.note('pm-lin','知夏 2019-11-14 17:18 给我发过站内信：去旧实验楼拿笔记本。我当时没有看到。');
-    }
+    if(m){G.state.read[m.id]=1;G.save()}
     const list=F.pms.map(x=>`<tr class="${G.state.read[x.id]?'':'unread'}"><td>${G.state.read[x.id]?'已读':'<b>未读</b>'}</td><td>${a(B('pm/'+x.id),esc(x.title))}</td><td>${esc(x.from)}</td><td>${x.time}</td></tr>`).join('');
     const main=`<h1 class="t-title">短消息 · 收件箱</h1><table class="tlist"><tr><th>状态</th><th>标题</th><th>发件人</th><th>时间</th></tr>${list}</table>
       ${m?`<div class="t-post"><div class="t-ph">发件人：${esc(m.from)}　时间：${m.time}</div><div class="t-pb"><b>${esc(m.title)}</b>${G.para(m.body)}</div></div>`:'<p class="hint-line">点击标题阅读。</p>'}`;
-    return page('短消息',main,'msg.asp');
+    return page('短消息',main);
   };
 
   G.bbs.search=(q='')=>{
@@ -212,11 +199,11 @@
     const hits=q?F.threads.filter(t=>visibleBoard(t.board)&&(t.title+t.author+t.posts.map(x=>x.a+x.body).join('')).includes(q)):[];
     const main=`<form class="search" data-form="bbs-search">帖子查询：<input name="q" value="${esc(q)}" placeholder="标题、作者或内容"> <button>查询</button></form>
       ${q?`<p>找到 ${hits.length} 个相关主题：</p><table class="tlist"><tr><th>论题</th><th>作者</th><th>版块</th><th>日期</th></tr>${hits.map(t=>`<tr><td>${a(B('thread/'+t.id),esc(t.title))}</td><td>${user(t.author)}</td><td>${F.boardName(t.board)}</td><td>${t.date.slice(0,10)}</td></tr>`).join('')}</table>`:'<p class="hint-line">可以搜人名，例如同学的名字或用户名。</p>'}`;
-    return page('帖子查询',main,'search.asp');
+    return page('帖子查询',main);
   };
 
-  G.bbs.post=()=>page('提示','<div class="blocked">论坛即将停止服务，已关闭注册与发帖功能。</div>','post.asp');
-  G.bbs.notfound=()=>page('提示','<div class="blocked">该帖子或页面不存在，可能已被删除。</div>','error.asp');
+  G.bbs.post=()=>page('提示','<div class="blocked">论坛即将停止服务，已关闭注册与发帖功能。</div>');
+  G.bbs.notfound=()=>page('提示','<div class="blocked">该帖子或页面不存在，可能已被删除。</div>');
 
   // —— 表单 ——
   G.bbs.bind=()=>{
@@ -237,19 +224,19 @@
         return G.fb(f,'迁移名单中没有该用户名。你当年的用户名，也许就挂在论坛的帖子列表里。');
       }
       const v=d.get('ans').trim();
-      if(v==='1108'){G.set('loggedIn');G.sound('unlock');G.note('login','用“文化节 11 月 8 日”找回了 chenmo_2019。有四条未读短消息。');G.go(B('pm'));return}
+      if(v==='1108'){G.set('loggedIn');G.go(B('pm'));return}
       if(v==='1110')return G.fb(f,'不对。这是班级主页更新的日期，不是上台的日子。');
       if(v==='1115')return G.fb(f,'不对。这是照片被替换的日期。');
       G.fb(f,'答案错误。去学校官网找找那次演出的新闻。');
     });
     on('album',(f,d)=>{
       const v=G.norm(d.get('v'));
-      if(v==='林知夏'||v==='知夏'||v==='linzx'){G.set('album');G.sound('unlock');G.note('album','许清的原片里有 20 个人：第二排左起第七个是林知夏。官网版本把她修掉了。');G.render();return}
+      if(v==='林知夏'||v==='知夏'||v==='linzx'){G.set('album');G.render();return}
       G.fb(f,'密码错误。对比官网合照的名字和班级名单，看看少了谁。');
     });
     on('lock1',(f,d)=>{
       const v=d.get('v').replace(/[:：\s]/g,'');
-      if(v==='1721'){G.set('lock1');G.sound('unlock');G.note('lock1','第一把锁：17:21。通报说“19 时许”，她五点多就去了旧实验楼。');G.render();return}
+      if(v==='1721'){G.set('lock1');G.render();return}
       if(v==='1718')return G.fb(f,'差一点。那是她给你发站内信的时间，不是在论坛上留下的最后一句话。');
       if(v==='1900')return G.fb(f,'这是学校通报写的时间。许清说了：不是。');
       if(v==='1805')return G.fb(f,'这是许清开始找她的时间。');
@@ -257,11 +244,11 @@
     });
     on('lock2',(f,d)=>{
       const v=G.norm(d.get('v'));
-      if(v==='b203'){G.set('archive');G.sound('unlock');G.note('archive','许清的寄存：纸条“明天放学，老地方，一个人来”；群聊里周予安说“开个玩笑而已”；学校把时间写晚了一个多小时；她说《明天有人会死》的编辑记录里有 2026 年。');G.render();return}
+      if(v==='b203'){G.set('archive');G.render();return}
       if(v.includes('203'))return G.fb(f,'编号要写完整，前面有楼号字母。');
       G.fb(f,'锁没有打开。文化节新闻里写着你们在哪排练。');
     });
-    document.querySelectorAll('[data-act="draft"]').forEach(b=>b.onclick=()=>{G.set('draftOpen');G.sound('glitch');G.go(B('thread/1113'))});
+    document.querySelectorAll('[data-act="draft"]').forEach(b=>b.onclick=()=>{G.set('draftOpen');G.go(B('thread/1113'))});
     G.story.bind();
   };
 })();
