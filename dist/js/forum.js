@@ -5,6 +5,10 @@
   const logged=()=>flag('loggedIn');
   const user=u=>a(B('profile/'+encodeURIComponent(u)),esc(u));
   const visibleBoard=id=>id!=='vault'||flag('album');
+  const tl=()=>G.state.timeline;
+  // 时间线变了以后，第一次看到变化的页面时记下，最后一条回复才会开放
+  const noticeChange=()=>{if(flag('rescued')&&!flag('sawChange'))G.set('sawChange')};
+  const cached='<div class="cache">[历史缓存：该内容在当前时间线中已不存在]</div>';
 
   function side(){
     const L=(p,t,cls='')=>a(B(p),t,cls);
@@ -42,7 +46,7 @@
   G.bbs.board=(id='zatan')=>{
     if(!visibleBoard(id))return G.bbs.notfound();
     const name=F.boardName(id);
-    const list=F.threads.filter(t=>t.board===id).sort((x,y)=>(y.top?1:0)-(x.top?1:0)||y.date.localeCompare(x.date));
+    const list=F.threads.filter(t=>t.board===id&&F.visible(t)).sort((x,y)=>(y.top?1:0)-(x.top?1:0)||y.date.localeCompare(x.date));
     const rows=list.map((t,i)=>{
       const rep=Math.max(t.posts.length-1,0),odd=t.special==='mystery';
       const cls=t.top?'red':odd?'odd':'';
@@ -67,7 +71,7 @@
   const postHtml=(x,floor,title)=>{
     const u=F.users[x.a]||{};
     return `<div class="t-post${x.cls?' '+x.cls:''}"><div class="t-ph">${floor?'':'<b>楼主</b> '}作者：${user(x.a)}　${floor?'回复':'提交'}日期：${x.t}<span>${floor?floor+'楼':''}</span></div>
-      <div class="t-pb">${x.html||G.para(x.body)}</div>${u.sig&&!x.cls?`<div class="t-sig">${esc(u.sig)}</div>`:''}</div>`;
+      <div class="t-pb">${x.html||G.para(x.body)}</div>${x.like===tl()?`<div class="like">♥ 1 人觉得很赞：${user('linzx')}（2026-11-14 23:52）</div>`:''}${u.sig&&!x.cls?`<div class="t-sig">${esc(u.sig)}</div>`:''}</div>`;
   };
   G.forum.postHtml=postHtml;
   function threadHead(t,views,reps){
@@ -78,6 +82,7 @@
     if(!t||!visibleBoard(t.board))return G.bbs.notfound();
     if(t.special==='mystery')return mystery(t);
     if(t.special==='vault')return vault(t);
+    if(id==='g1'&&tl()!=='original')noticeChange();
     const main=threadHead(t,t.views,t.posts.length-1)+t.posts.map((x,i)=>postHtml(x,i)).join('')+
       `<div class="t-foot">${t.locked?`<span class="r">${t.locked}</span>`:`[${a(B('post'),'回复本帖')}]`}　[${a(B('board/'+t.board),'返回列表')}]</div>`;
     return page(F.boardName(t.board),main);
@@ -102,7 +107,7 @@
     if(lock1)body+=`<form class="lock" data-form="lock2"><b>第二把锁</b>　${lock2?'<span class="ok">✔ 已打开</span>':`我们班第一次站上舞台之前，每天放学后去的那间教室。<br><input name="v" maxlength="6" placeholder="教室编号"> <button>开锁</button><span class="feedback"></span>`}</form>`;
     if(lock2)body+=`<div class="attach"><div class="attach-h">附件（4）</div>
       <div class="file"><b>📷 纸条.jpg</b><div class="paper-note">明天放学，老地方。<br>你的笔记本在我们这儿。<br>一个人来。别告诉老师。</div><small>许清：在知夏抽屉里找到的。“老地方”是哪里，我还没弄清楚。</small></div>
-      <div class="file"><b>💬 群聊截图.png</b><div class="chatlog"><p><b>周予安：</b>明天让她自己来拿</p><p><b>某同学：</b>会不会有点过了</p><p><b>周予安：</b>开个玩笑而已，谁让她到处说</p><p class="cut">（截图到此为止）</p></div></div>
+      <div class="file"><b>💬 群聊截图.png</b><div class="chatlog"><p><b>周予安：</b>明天让她自己来拿，老地方，上次那间</p><p><b>某同学：</b>会不会有点过了</p><p><b>周予安：</b>开个玩笑而已，谁让她到处说</p><p class="cut">（截图到此为止）</p></div></div>
       <div class="file"><b>📄 时间.txt</b><pre>11.14
 17:05  放学。周予安在走廊跟知夏说了句话。
 17:21  知夏在论坛发了最后一条心情。
@@ -122,7 +127,7 @@
 
 我是不是太累了，眼花了。
 你自己去看看吧。</pre></div></div>`;
-    const main=threadHead(t,3,0)+postHtml({a:'xuqing',t:'2019-11-16 01:30',html:body},0)+`<div class="t-foot">[本帖仅寄存，不可回复]</div>`;
+    const main=threadHead(t,3,0)+(tl()!=='original'?cached:'')+postHtml({a:'xuqing',t:'2019-11-16 01:30',html:body},0)+`<div class="t-foot">[本帖仅寄存，不可回复]</div>`;
     return page('旧物寄存处',main);
   }
 
@@ -134,6 +139,8 @@
       ['#2','2019-11-14 00:01','chenmo_2019','申请删除','<span class="r">失败：请不要删除这条帖子</span>',''],
       ['#1','2019-11-13 23:58','chenmo_2019','发表','来源 IP：<span class="glitch">本机</span>','']
     ];
+    if(flag('rescued'))rows.unshift(['#5','2019-11-14 18:20','chenmo_2019','追加回复','<span class="glitch">历史已变更</span>','']);
+    if(G.state.ending==='A'||G.state.ending==='B')rows.unshift(['#6','2026-11-14 23:5x','guest_0714','最后一条回复（已送达）','<span class="glitch">草稿副本仍可编辑</span>',`<button data-act="retry" class="mini">重新编辑</button>`]);
     const main=`<h1 class="t-title">编辑记录 ·《明天有人会死》</h1>
       <table class="tlist hist"><tr><th>版本</th><th>时间</th><th>操作人</th><th>操作</th><th>备注</th><th></th></tr>${rows.map((r,i)=>`<tr class="${i%2?'alt':''}">${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>
       <p class="hint-line">提示：草稿提交后，将按“提交目标”时间写入原帖。</p>
@@ -146,11 +153,14 @@
     const x=F.users[u];
     if(!x)return page('用户资料','<div class="blocked">该用户不存在或已注销。</div>');
     let moods=(F.moods[u]||[]).slice();
-    if(u===me&&flag('demoEnd'))moods.unshift(['2019-11-14 08:03','今天放学我哪也不去。<span class="cache">[历史缓存比对：此条在 2026-11-14 23:17 的快照中不存在]</span>']);
+    if(u===me&&flag('named'))moods.unshift(['2019-11-14 08:03','今天放学我哪也不去。<span class="cache">[历史缓存比对：此条在 2026-11-14 23:17 的快照中不存在]</span>']);
+    const after=(F.moodsAfter[u]||{})[tl()];
+    if(after)moods=after.concat(moods);
+    if(u==='linzx'&&tl()!=='original')noticeChange();
     const main=`<table class="profile"><tr><td class="pf-l">${G.art.avatar(x.ch,x.color)}<br><b>${esc(u)}</b><br>${x.title}</td>
       <td><table class="pf-t"><tr><th>用户名</th><td>${esc(u)}</td><th>注册日期</th><td>${x.reg}</td></tr>
       <tr><th>头衔</th><td>${x.title}</td><th>积分</th><td>${x.score}</td></tr>
-      <tr><th>发帖数</th><td>${x.posts}</td><th>最后登录</th><td>${u===me&&logged()?G.stamp():u==='guest_0714'?'<span class="glitch">正在线上</span>':u==='linzx'?'2019-11-14 17:21':'2019-11-'+(10+x.posts%6)}</td></tr>
+      <tr><th>发帖数</th><td>${x.posts}</td><th>最后登录</th><td>${u===me&&logged()?G.stamp():u==='guest_0714'?'<span class="glitch">正在线上</span>':u==='linzx'?F.lastLogin[tl()]:'2019-11-'+(10+x.posts%6)}</td></tr>
       <tr><th>签名</th><td colspan="3">${esc(x.sig||'')}</td></tr></table>
       <p>[${a(B('album/'+encodeURIComponent(u)),'TA 的相册')}]　[${a(B('pm'),'发短消息')}]</p></td></tr></table>
       <div class="moods"><div class="recom-h">§最近发言 / 心情</div>${moods.length?moods.map(([t,s])=>`<div class="mood"><span>${t}</span>${s}</div>`).join(''):'<div class="mood">暂无。</div>'}</div>`;
@@ -188,7 +198,7 @@
     if(!logged())return G.bbs.login('请先登录。');
     const m=F.pms.find(x=>x.id===id);
     if(m){G.state.read[m.id]=1;G.save()}
-    const list=F.pms.map(x=>`<tr class="${G.state.read[x.id]?'':'unread'}"><td>${G.state.read[x.id]?'已读':'<b>未读</b>'}</td><td>${a(B('pm/'+x.id),esc(x.title))}</td><td>${esc(x.from)}</td><td>${x.time}</td></tr>`).join('');
+    const list=F.pms.map(x=>`<tr class="${G.state.read[x.id]?'':'unread'}"><td>${G.state.read[x.id]?'已读':'<b>未读</b>'}</td><td>${a(B('pm/'+x.id),esc(x.title))}</td><td>${esc(x.from)}${tl()!=='original'&&(x.id==='m2'||x.id==='m3')?' <small class="r">[缓存]</small>':''}</td><td>${x.time}</td></tr>`).join('');
     const main=`<h1 class="t-title">短消息 · 收件箱</h1><table class="tlist"><tr><th>状态</th><th>标题</th><th>发件人</th><th>时间</th></tr>${list}</table>
       ${m?`<div class="t-post"><div class="t-ph">发件人：${esc(m.from)}　时间：${m.time}</div><div class="t-pb"><b>${esc(m.title)}</b>${G.para(m.body)}</div></div>`:'<p class="hint-line">点击标题阅读。</p>'}`;
     return page('短消息',main);
@@ -196,7 +206,7 @@
 
   G.bbs.search=(q='')=>{
     q=q.trim();
-    const hits=q?F.threads.filter(t=>visibleBoard(t.board)&&(t.title+t.author+t.posts.map(x=>x.a+x.body).join('')).includes(q)):[];
+    const hits=q?F.threads.filter(t=>visibleBoard(t.board)&&F.visible(t)&&(t.title+t.author+t.posts.map(x=>x.a+x.body).join('')).includes(q)):[];
     const main=`<form class="search" data-form="bbs-search">帖子查询：<input name="q" value="${esc(q)}" placeholder="标题、作者或内容"> <button>查询</button></form>
       ${q?`<p>找到 ${hits.length} 个相关主题：</p><table class="tlist"><tr><th>论题</th><th>作者</th><th>版块</th><th>日期</th></tr>${hits.map(t=>`<tr><td>${a(B('thread/'+t.id),esc(t.title))}</td><td>${user(t.author)}</td><td>${F.boardName(t.board)}</td><td>${t.date.slice(0,10)}</td></tr>`).join('')}</table>`:'<p class="hint-line">可以搜人名，例如同学的名字或用户名。</p>'}`;
     return page('帖子查询',main);
@@ -248,6 +258,7 @@
       if(v.includes('203'))return G.fb(f,'编号要写完整，前面有楼号字母。');
       G.fb(f,'锁没有打开。文化节新闻里写着你们在哪排练。');
     });
+    document.querySelectorAll('[data-act="retry"]').forEach(b=>b.onclick=()=>{G.story.retry();G.go(B('thread/1113'))});
     document.querySelectorAll('[data-act="draft"]').forEach(b=>b.onclick=()=>{G.set('draftOpen');G.go(B('thread/1113'))});
     G.story.bind();
   };
