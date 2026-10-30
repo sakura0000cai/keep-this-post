@@ -1,4 +1,6 @@
 /* 榕园社区：仿 2000 年代中文社区，红色主调 */
+body{margin:0;background:#fff}
+*{box-sizing:border-box}
 .bbs{display:flex;min-width:980px;min-height:100%;background:#fff;font:15px/1.75 "宋体",SimSun,serif;color:#000}
 .bbs a{color:#0000cc;text-decoration:underline}
 .bbs a.r,.bbs .r{color:#d00}

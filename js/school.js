@@ -1,7 +1,6 @@
 /* 临川七中官网页面。风格：2010 年前后的高校/中学门户，红色主调。 */
 (function(){
-  const {a,esc}=G,S=G.school,W=p=>'/www/'+p;
-  const HOST='http://www.lcqz.edu.cn/';
+  const {a,esc}=G,S=G.school,W=p=>'/'+p;
   const nav=[['index','首　页'],['about','学校概况'],['list/news','新闻动态'],['list/notice','通知公告'],['teach','教育教学'],['gallery','校园风采'],['classes','班级空间'],['alumni','校友之家']];
 
   function head(){
@@ -52,10 +51,10 @@
         </div>
       </div>
     </div>${foot()}</div>`;
-    return {title:'临川市第七中学',url:HOST+'index.htm',html};
+    return {title:'临川市第七中学',html};
   };
 
-  G.www.about=()=>({title:'学校简介 - 临川市第七中学',url:HOST+'xxgk/xxjj.htm',html:page('学校简介','学校概况',`
+  G.www.about=()=>({title:'学校简介 - 临川市第七中学',html:page('学校简介','学校概况',`
     <h3 class="art-title">学校简介</h3>
     <p>　　临川市第七中学始建于 1958 年，前身为临川县文昌中学，1984 年更名为临川市第七中学，2006 年被评为省级示范性普通高级中学。</p>
     <p>　　学校现有教职工 186 人，其中高级教师 62 人。学校坚持“明德、笃学、求真”的校训，形成了“严谨、团结、求实、创新”的校风。</p>
@@ -63,37 +62,31 @@
     <p>　　教学主楼（A 楼）：1999 年落成，五层。<br>　　艺术楼（B 楼）：2005 年落成，设播音室、音乐教室、美术教室。<br>　　图书馆：2010 年落成，藏书 12 万册。<br>　　东侧医务室：一层为医务室，二层为心理咨询室。<br>　　旧实验楼：1986 年建成，四层砖混结构。新实验楼启用后，旧实验楼于 <b>2020 年</b>停止使用并封闭，现待改造。</p>
     <p>　　校园中央的老榕树树龄逾百年，是七中的标志，也是历届毕业生合影的地方。</p>`,aboutSub)});
 
-  G.www.teach=()=>({title:'教育教学 - 临川市第七中学',url:HOST+'jyjx.htm',html:page('教育教学','教育教学',`
+  G.www.teach=()=>({title:'教育教学 - 临川市第七中学',html:page('教育教学','教育教学',`
     <p>　　学校实行年级组管理，高一、高二年级各 16 个教学班，高三年级 16 个教学班。</p>
     <p>　　学校开设文学社、广播站、合唱团、摄影社、篮球社、机器人社等 23 个学生社团。每学年举办校园文化节、科技节、体育节。</p>
     <p>　　心理健康教育中心面向全体学生开放，提供个别辅导与团体辅导。</p>`,aboutSub)});
 
   G.www.list=(cat='news')=>{
     const name=cat==='notice'?'通知公告':'新闻动态';
-    return {title:name+' - 临川市第七中学',url:HOST+(cat==='notice'?'tzgg':'xwdt')+'.htm',html:page(name,name,
+    return {title:name+' - 临川市第七中学',html:page(name,name,
       `<ul class="sch-list full">${S.list(cat).map(rowFull).join('')}</ul><div class="pager">共 ${S.list(cat).length} 条　首页　上页　<b>1</b>　下页　尾页</div>`,newsSub)};
   };
 
   G.www.article=id=>{
     const x=S.byId(id);
     if(!x)return G.www.notfound();
-    if(id==='2611')G.note('notice','学校公告：旧论坛“榕园社区”用学校域名下的 bbs 二级域名访问，首页链接已撤下，今晚 0 点关闭。');
-    if(id==='1915')G.note('report','2019-11-15 学校通报：称林知夏“晚 19 时许”在“已停止使用的”旧实验楼出事。');
-    if(id==='1908')G.note('festival','文化节 2019-11-08：高二（3）班第一次站上全校舞台；合唱在 B203 音乐教室排练。');
-    if(id==='1914')G.note('rain','2019-11-14 早晨下大雨，安全教育晨会改为广播进行。');
-    if(id==='1901')G.note('duty','2019 值班：东侧医务室周一至周五开放，周四晚许老师协助；旧实验楼三层摄影室按借用登记使用。');
-    if(id==='1910')G.note('club','2019 社团：摄影社每周四 17:00—18:30 使用旧实验楼三层摄影室。');
     const list=S.list(x.cat),i=list.indexOf(x),prev=list[i-1],next=list[i+1];
     const name=x.cat==='notice'?'通知公告':'新闻动态';
     const extra=id==='1908'?`<p style="text-align:center">${a(W('photo/1908'),'【查看文化节合影】')}</p>`:'';
-    return {title:x.title+' - 临川市第七中学',url:HOST+'info/'+(x.cat==='notice'?'1002':'1001')+'/'+x.id+'.htm',html:page(name,`${a(W('list/'+x.cat),name)} &gt; 正文`,
+    return {title:x.title+' - 临川市第七中学',html:page(name,`${a(W('list/'+x.cat),name)} &gt; 正文`,
       `<h3 class="art-title">${esc(x.title)}</h3><div class="art-meta">发布时间：${x.date}　　来源：${x.src}　　点击：${x.hits}${x.archive?'　　<em>[历史存档]</em>':''}</div>
       <div class="art-body">${G.para(x.body)}</div>${extra}
       <div class="art-tools">【${a(location.hash.slice(1),'打印本页')}】【${a(W('list/'+x.cat),'关闭窗口')}】</div>
       <div class="art-nav">上一条：${prev?a(W('article/'+prev.id),esc(prev.title)):'没有了'}<br>下一条：${next?a(W('article/'+next.id),esc(next.title)):'没有了'}</div>`,newsSub)};
   };
 
-  G.www.gallery=()=>({title:'校园风采 - 临川市第七中学',url:HOST+'xyfc.htm',html:page('校园风采','校园风采',`
+  G.www.gallery=()=>({title:'校园风采 - 临川市第七中学',html:page('校园风采','校园风采',`
     <div class="albums">
       <div class="album">${a(W('photo/1908'),`<div class="pic">${G.art.groupPhoto('web')}</div>2019 第十三届校园文化节`)}<small>2019-11-15 更新</small></div>
       <div class="album"><div class="pic">${G.art.scene(2)}</div>2026 秋季田径运动会<small>相册整理中</small></div>
@@ -102,8 +95,7 @@
     </div>`)});
 
   G.www.photo=()=>{
-    G.note('webphoto','官网合照（2019-11-15 替换）只有 19 个名字，第二排中间有一处不自然的空隙。');
-    return {title:'第十三届校园文化节 - 校园风采',url:HOST+'xyfc/1908.htm',html:page('校园风采',`${a(W('gallery'),'校园风采')} &gt; 2019 第十三届校园文化节`,`
+    return {title:'第十三届校园文化节 - 校园风采',html:page('校园风采',`${a(W('gallery'),'校园风采')} &gt; 2019 第十三届校园文化节`,`
     <h3 class="art-title">青春 · 回响 —— 高二（3）班合影</h3>
     <div class="art-meta">拍摄：2019-11-08　　上传：学校办公室　　最后修改：2019-11-15 08:04</div>
     <div class="photo-frame">${G.art.groupPhoto('web')}</div>
@@ -112,7 +104,7 @@
     <p class="caption">${a(W('article/1908'),'相关新闻：我校第十三届校园文化节隆重举行')}</p>`)};
   };
 
-  G.www.classes=()=>({title:'班级空间 - 临川市第七中学',url:HOST+'bjkj.htm',html:page('班级空间','班级空间',`
+  G.www.classes=()=>({title:'班级空间 - 临川市第七中学',html:page('班级空间','班级空间',`
     <p>班级空间收录历届班级主页（只读）。</p>
     <table class="sch-table"><tr><th>届别</th><th colspan="4">班级</th></tr>
     <tr><td>2021 届（2019 年时为高二）</td><td>高二（1）班</td><td>高二（2）班</td><td>${a(W('class/2021-3'),'高二（3）班')}</td><td>高二（4）班……</td></tr>
@@ -121,10 +113,9 @@
 
   G.www.class=id=>{
     if(id!=='2021-3')return G.www.notfound();
-    G.note('roster','高二（3）班（2019）班级主页：全班 20 人，班主任刘雯。');
     const cells=S.roster.map((n,i)=>`<td>${G.pad(i+1)}</td><td>${n}</td>`);
     let rows='';for(let i=0;i<10;i++)rows+=`<tr>${cells[i]}${cells[i+10]}</tr>`;
-    return {title:'高二（3）班 - 班级空间',url:HOST+'bjkj/2021-3.htm',html:page('班级空间',`${a(W('classes'),'班级空间')} &gt; 2021 届高二（3）班`,`
+    return {title:'高二（3）班 - 班级空间',html:page('班级空间',`${a(W('classes'),'班级空间')} &gt; 2021 届高二（3）班`,`
       <h3 class="art-title">2021 届高二（3）班</h3>
       <p>班主任：刘雯（语文）　　班长：王浩然　　宣传委员：许清　　班级人数：<b>20</b> 人</p>
       <p>班级口号：<b>一个都不能少。</b></p>
@@ -132,7 +123,7 @@
       <p class="caption">班级荣誉：2019 年第十三届校园文化节合唱一等奖。<br>页面最后更新：2019-11-10</p>`,aboutSub)};
   };
 
-  G.www.alumni=()=>({title:'校友之家 - 临川市第七中学',url:HOST+'xyzj.htm',html:page('校友之家','校友之家',`
+  G.www.alumni=()=>({title:'校友之家 - 临川市第七中学',html:page('校友之家','校友之家',`
     <ul class="sch-list full">${['2608','2611'].map(id=>rowFull(S.byId(id))).join('')}</ul>
     <p>　　校友之家原设有“榕园社区”校友论坛入口。因信息系统升级，入口已撤下，相关说明请见通知公告。</p>
     <p>　　校友联络邮箱、各届联络人信息正在整理中。</p>`)});
@@ -140,12 +131,12 @@
   G.www.search=(q='')=>{
     q=q.trim();
     const hits=q?S.articles.filter(x=>(x.title+x.body).includes(q)):[];
-    return {title:'站内搜索',url:HOST+'search.jsp?wbtreeid=1001',html:page('站内搜索','搜索结果',`
+    return {title:'站内搜索',html:page('站内搜索','搜索结果',`
       ${searchBox(q)}<p>${q?`关键词“${esc(q)}”共找到 <b>${hits.length}</b> 条结果：`:'请输入关键词。'}</p>
       <ul class="sch-list full">${hits.map(rowFull).join('')}</ul>`)};
   };
 
-  G.www.notfound=()=>({title:'页面不存在',url:HOST+'404.htm',html:page('提示','页面不存在',`<p>您访问的页面不存在或已迁移。</p><p>${a(W('index'),'返回首页')}</p>`)});
+  G.www.notfound=()=>({title:'页面不存在',html:page('提示','页面不存在',`<p>您访问的页面不存在或已迁移。</p><p>${a(W('index'),'返回首页')}</p>`)});
 
   // 首页轮播
   G.www.bind=()=>{
