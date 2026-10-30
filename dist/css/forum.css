@@ -1,0 +1,121 @@
+/* 榕园社区：仿 2000 年代中文社区，红色主调 */
+.bbs{display:flex;min-width:980px;min-height:100%;background:#fff;font:15px/1.75 "宋体",SimSun,serif;color:#000}
+.bbs a{color:#0000cc;text-decoration:underline}
+.bbs a.r,.bbs .r{color:#d00}
+.bbs a.red{color:#d00;font-weight:bold}
+.bbs a.odd{color:#000;font-weight:bold}
+.bbs-side{width:150px;flex:none;background:#b02a2a;color:#fff;display:flex;flex-direction:column;border-right:4px solid #e7a7a2}
+.bbs-logo{height:96px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:radial-gradient(circle at 75% 35%,#fff 0 18px,transparent 19px),linear-gradient(#fde3df,#f2b7ae);color:#a8121a}
+.bbs-logo b{font:bold 24px "Microsoft YaHei",SimHei,sans-serif;letter-spacing:1px;text-shadow:1px 1px 0 #fff}
+.bbs-logo small{font:italic 11px Georgia,serif;color:#8a4a44}
+.side-tabs{display:flex;justify-content:space-around;padding:10px 0 6px;font-size:16px}
+.side-tabs .on{text-decoration:underline}
+.side-links{display:flex;flex-direction:column;padding:0 0 10px 6px}
+.side-links a{color:#fff!important;text-decoration:none!important;font-size:16px;line-height:1.75}
+.side-links a:hover{color:#ffe56b!important}
+.side-links a.hl{color:#fff36b!important}
+.side-links a.odd{color:#ffd0c9!important;font-style:italic}
+.side-links i{font-style:normal;color:#fff36b}
+.side-sec{margin:8px 0 2px;font-size:16px;color:#ffe9e6}
+.side-foot{margin-top:auto;padding:10px 4px;background:#8f1d1d;text-align:center;font-size:14px}
+.side-foot a{color:#fff!important}
+.bbs-main{flex:1;min-width:0;padding:4px 10px 20px}
+.bbs-welcome{display:flex;justify-content:space-between;font-size:13px;color:#555;padding:2px 0 4px}
+.bbs-topbar{display:flex;justify-content:space-between;align-items:center;height:30px;padding:0 8px;background:#cc4b4b;color:#fff}
+.bbs-topbar b{font:18px "宋体",SimSun,serif}
+.bbs-topbar span a{color:#fff;margin-left:10px;font-size:16px}
+.bbs-topbar a.y{color:#fff36b}
+.bbs-ad{margin:6px 0;border:1px solid #ddd}
+.bbs-ad svg{display:block;width:100%;height:120px}
+.cls-ad{display:flex;border:1px solid #e3a7a2;background:#fff8f6;margin-bottom:6px}
+.cls-ad>b{width:26px;flex:none;writing-mode:vertical-rl;text-align:center;background:#e9a23b;color:#fff;font:13px SimHei,sans-serif;letter-spacing:2px;padding:4px 0}
+.cls-ad div{display:grid;grid-template-columns:repeat(4,1fr);gap:0 10px;padding:4px 8px;font-size:14px}
+.cls-ad span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cls-ad span{color:#d00}
+.bbs-bar{display:flex;justify-content:space-between;font-size:16px;margin:4px 0}
+.bbs-bar b{color:#26c;font-weight:normal}
+.bbs-bar2,.bbs-tabs{font-size:15px;margin:2px 0}
+.recom{margin:6px 0}
+.recom-h{background:#cc4b4b;color:#fff;padding:2px 6px;font-size:16px}
+.recom-b{background:#fdeceb;padding:4px 6px;font-size:15px}
+.hot{color:#f60;font-style:italic;font-size:12px}
+.tlist{width:100%;border-collapse:collapse;margin-top:6px}
+.tlist th{background:#cc4b4b;color:#fff;font-weight:normal;font-size:16px;padding:3px 4px}
+.tlist td{padding:3px 4px;border-bottom:1px solid #f4dcda;font-size:15px}
+.tlist tr.alt td{background:#fdf1f0}
+.tlist td.ico{width:22px;text-align:center;color:#c33}
+.tlist td.n{text-align:center;width:60px}
+.tlist td.d{white-space:nowrap;width:120px;text-align:center}
+.tlist td em{font-style:normal;color:#d00}
+.tlist td small{color:#999}
+.tlist tr.unread td{font-weight:bold}
+.bbs-pager{margin:8px 0;font-size:14px}
+.bbs-pager small{color:#999}
+.bbs-copy{margin-top:24px;padding-top:8px;border-top:1px solid #e3a7a2;text-align:center;color:#777;font-size:12px}
+.t-title{text-align:center;font:bold 22px "宋体",SimSun,serif;margin:14px 0 6px}
+.t-meta{text-align:center;font-size:13px;color:#555;border-bottom:2px solid #cc4b4b;padding-bottom:6px}
+.t-post{border-bottom:1px dashed #d9a9a5;padding-bottom:6px}
+.t-ph{display:flex;gap:2px;align-items:center;background:#fbe6e3;padding:2px 8px;margin-top:10px;font-size:13px;color:#555}
+.t-ph b{color:#d00;margin-right:4px}
+.t-ph span{margin-left:auto;color:#999}
+.t-pb{padding:4px 10px}
+.t-pb p{margin:6px 0}
+.t-sig{margin:4px 10px 0;padding-top:2px;border-top:1px solid #eee;color:#888;font-size:12px}
+.t-sig::before{content:"——————\A";white-space:pre}
+.t-foot{margin:12px 0;font-size:14px}
+.blocked{margin:20px auto;max-width:620px;padding:16px;border:1px solid #e3a7a2;background:#fff8f6;color:#a00;font-size:15px;text-align:center}
+.edit-note{margin:8px 10px;font-size:13px;color:#888}
+.glitch{animation:gl 5s infinite steps(1)}
+@keyframes gl{0%,92%{opacity:1;transform:none}93%{opacity:.4;transform:translateX(2px)}95%{opacity:1;transform:translateX(-1px)}97%{opacity:.7}}
+.from-now .t-ph{background:#ececec}
+.from-past .t-ph{background:#fbe6e3}
+.waiting{margin:12px 10px;color:#a00;font-size:14px}
+.dots::after{content:"";animation:dots 1.2s infinite steps(4)}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+.reply{margin:14px 0;border:1px solid #e3a7a2}
+.reply-h{background:#fbe6e3;padding:3px 8px;font-size:14px}
+.reply textarea{display:block;width:calc(100% - 16px);height:110px;margin:8px;font:14px SimSun,serif;border:1px solid #b88}
+.reply p{margin:0 8px 8px}
+.reply button,.lock button,.login button,.search button,.mini{padding:1px 14px;border:1px solid #888;background:linear-gradient(#fff,#ddd);font:14px SimSun,serif;cursor:pointer}
+.feedback{margin-left:10px;font-size:13px}
+.feedback.bad{color:#d00}.feedback.ok{color:#080}
+.lock{margin:12px 0;padding:10px;border:1px dashed #cc4b4b;background:#fffafa;font-size:14px}
+.lock input{width:120px;font:14px SimSun,serif}
+.lock .ok{color:#080}
+.lock.center{text-align:center}
+.attach{margin-top:14px;border:1px solid #ddd}
+.attach-h{background:#eee;padding:2px 8px;font-size:13px}
+.file{padding:8px 10px;border-top:1px solid #eee}
+.file>b{display:block}
+.file small{display:block;color:#777;margin-top:4px}
+.file pre{white-space:pre-wrap;background:#fafafa;border:1px solid #eee;padding:8px;font:13px/1.8 "Courier New",SimSun,monospace}
+.paper-note{display:inline-block;margin:6px 0;padding:10px 18px;background:#fbf6e6;border:1px solid #d8cfae;transform:rotate(-1.5deg);font:16px/1.9 KaiTi,STKaiti,serif;box-shadow:1px 2px 4px rgba(0,0,0,.15)}
+.chatlog{display:inline-block;margin:6px 0;padding:8px 14px;background:#eef3f8;border:1px solid #c7d4e2;font:13px "Microsoft YaHei",sans-serif}
+.chatlog p{margin:3px 0}
+.chatlog .cut{color:#999}
+.hint-line{color:#888;font-size:13px}
+.hist td{font-size:14px}
+.photo-frame{border:1px solid #bbb;padding:6px;background:#f6f6f6;margin:8px 0}
+.photo-frame svg{display:block;width:100%}
+.caption{color:#555;font-size:13px}
+.profile{width:100%;border:1px solid #e3a7a2;border-collapse:collapse;margin-top:10px}
+.profile td{vertical-align:top;padding:10px}
+.pf-l{width:130px;text-align:center;background:#fdf1f0;font-size:14px}
+.ava{width:80px;height:80px;border:1px solid #ccc}
+.pf-t{width:100%;border-collapse:collapse;font-size:14px}
+.pf-t th{width:80px;background:#fbe6e3;font-weight:normal;padding:3px;border:1px solid #f0d0cd}
+.pf-t td{padding:3px 6px;border:1px solid #f0d0cd}
+.moods{margin-top:10px}
+.mood{padding:5px 8px;border-bottom:1px dashed #e3c1be;font-size:15px}
+.mood span{color:#888;font-size:13px;margin-right:10px}
+.cache{display:block;color:#a00;font-size:12px}
+.login{max-width:420px;margin:24px auto;border:1px solid #e3a7a2;padding:0 0 12px;font-size:14px}
+.login-h{background:#cc4b4b;color:#fff;padding:3px 10px;font-size:16px;margin-bottom:10px}
+.login label,.login p{display:block;margin:8px 16px}
+.login input{width:200px;font:14px SimSun,serif}
+.login .feedback{display:block;margin:4px 16px}
+.search{margin:12px 0;font-size:15px}
+.search input{width:260px;font:14px SimSun,serif}
+.demo-end{margin:24px 0;padding:22px;text-align:center;background:#1d1414;color:#eadbd6;font:15px/2 SimSun,serif}
+.demo-end h2{font-size:20px;letter-spacing:3px;color:#fff}
+.demo-end .small{font-size:12px;color:#a99}

@@ -1,1 +1,1 @@
-{"name":"keep-this-post","version":"1.0.0","private":true,"description":"中文校园 ARG 网页解谜序章","scripts":{"start":"node server.cjs","check":"node --check dist/app.js && node --check server.cjs"}}
+{"name":"keep-this-post","version":"2.0.0","private":true,"description":"中文校园 ARG 网页解谜（试玩版）","scripts":{"start":"node server.cjs"}}

@@ -1,0 +1,46 @@
+/* 外壳：老式浏览器窗口 + 任务栏 */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;background:#2c3238;font:13px "Microsoft YaHei",SimSun,sans-serif;color:#222}
+button{font:inherit;cursor:pointer}
+.win{flex:1;display:flex;flex-direction:column;min-height:0;background:#d6d9de}
+.titlebar{height:32px;display:flex;align-items:flex-end;gap:10px;padding:0 8px;background:linear-gradient(#66707a,#3e454d);color:#fff}
+.appname{align-self:center;font-size:12px;white-space:nowrap;opacity:.9}
+.winbtn{margin-left:auto;align-self:center;letter-spacing:6px;font-size:12px;opacity:.8}
+.tabs{display:flex;gap:2px;min-width:0}
+.tabs button{display:flex;align-items:center;gap:6px;height:25px;max-width:230px;padding:0 14px;border:1px solid #808a94;border-bottom:0;border-radius:5px 5px 0 0;background:linear-gradient(#dfe3e7,#c4cad0);color:#333;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tabs button.active{background:linear-gradient(#fbfbfc,#eef0f2);color:#000}
+.tabs button i{font-style:normal;color:#b00}
+.toolbar{display:flex;align-items:center;gap:4px;padding:4px 6px;background:linear-gradient(#f5f6f8,#dde1e5);border-bottom:1px solid #98a0a8}
+.toolbar>button{width:30px;height:25px;border:1px solid #a9b0b7;border-radius:3px;background:linear-gradient(#fff,#e2e5e8);color:#445}
+.toolbar>button:hover{background:#fff}
+.addr{flex:1;display:flex;align-items:center;height:25px;border:1px solid #7d8893;background:#fff;min-width:0}
+.page-ico{padding:0 6px;color:#b30000;font-size:12px}
+.addr input{flex:1;min-width:0;height:100%;border:0;outline:0;font:12px Tahoma,SimSun,sans-serif;color:#222}
+.addr .go{height:100%;border:0;border-left:1px solid #c3c9cf;background:linear-gradient(#fff,#e7eaed);font-size:12px;padding:0 10px}
+.websearch{width:190px;height:25px;line-height:23px;border:1px solid #a9b0b7;background:#f2f3f5;color:#999;font-size:12px;padding:0 6px;white-space:nowrap;overflow:hidden}
+.viewport{flex:1;overflow:auto;background:#fff;position:relative}
+.statusbar{height:21px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;border-top:1px solid #aab1b8;background:#e4e7ea;color:#555;font-size:11px}
+.taskbar{height:36px;display:flex;align-items:center;gap:4px;padding:0 8px;background:linear-gradient(#24303c,#18212a)}
+.taskbar button{height:27px;padding:0 11px;border:1px solid #3d4e60;border-radius:2px;background:#2b3a4a;color:#e6edf3;font-size:12px}
+.taskbar button:hover{background:#38506a}
+.taskbar button b{display:inline-block;min-width:16px;margin-left:3px;padding:0 4px;border-radius:8px;background:#c62828;color:#fff;font-size:11px}
+.tclock{margin-left:auto;color:#dfe8f0;font:12px Tahoma,sans-serif;white-space:nowrap}
+#toast{position:fixed;left:50%;bottom:52px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:8px 16px;background:#fffbe1;border:1px solid #c9b45a;color:#4b4012;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:.25s;z-index:20}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+dialog{width:min(560px,92vw);max-height:80vh;border:1px solid #888;border-top:24px solid #b51a17;padding:18px 22px;font:14px/1.8 "Microsoft YaHei",SimSun,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+dialog::backdrop{background:rgba(20,24,28,.45)}
+dialog h2{margin:0 0 8px;font-size:17px;color:#9e1210}
+dialog ol{padding-left:22px}
+dialog li{margin-bottom:6px}
+dialog li small{color:#999}
+#close-dialog{position:absolute;top:-23px;right:4px;border:0;background:none;color:#fff;font-size:18px;line-height:22px}
+dialog .btn{margin-top:10px;padding:4px 14px;border:1px solid #a5120f;background:linear-gradient(#e6403b,#b5130f);color:#fff}
+dialog .btn.ghost{background:#f3f3f3;color:#333;border-color:#aaa}
+.intro{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,#3b2525,#140d0d 70%)}
+.intro[hidden]{display:none}
+.intro-box{width:min(520px,90vw);color:#e9dfd8;font:15px/2 SimSun,"宋体",serif;text-align:center}
+.intro-box h1{font:bold 28px SimSun,"宋体",serif;letter-spacing:4px;color:#fff}
+.intro-box .cw{margin:22px 0;color:#b9a69c;font-size:12px;line-height:1.8}
+.intro-box button{padding:8px 26px;border:1px solid #c9504c;background:#8f1512;color:#fff;font-size:14px}
+@media(max-width:700px){.websearch,.appname,.winbtn{display:none}.taskbar{overflow-x:auto}.taskbar button{flex:none}.tclock{display:none}}
