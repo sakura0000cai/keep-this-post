@@ -64,6 +64,28 @@
     </svg>`;
   };
 
+  // C 结局：七年后老榕树下的重聚。左一是林知夏，左二是陈默
+  A.reunion=()=>{
+    let people='';
+    const coats=['#7a3b3b','#2f4a6d','#5f8d6a','#8e6b3e','#4e5d6c','#6d4f7a','#3f6d5a','#9a5b3a'];
+    for(let i=0;i<10;i++){
+      const x=150+i*52,y=232+(i%2)*6,lin=i===0;
+      people+=`<g><path d="M${x-18} ${y+62}L${x-15} ${y+18}Q${x} ${y+8} ${x+15} ${y+18}L${x+18} ${y+62}Z" fill="${coats[i%8]}"/>
+      <ellipse cx="${x}" cy="${y}" rx="11" ry="14" fill="${['#e2bf9d','#d8b08c','#e8c7a6'][i%3]}"/>
+      <path d="M${x-12} ${y+2}Q${x-14} ${y-19} ${x} ${y-17}Q${x+14} ${y-18} ${x+12} ${y+2}L${x+9} ${y-6}L${x-9} ${y-6}Z" fill="#231c18"/>
+      ${lin?`<path d="M${x-11} ${y-2}Q${x-17} ${y+20} ${x-13} ${y+28}M${x+11} ${y-2}Q${x+17} ${y+20} ${x+13} ${y+28}" stroke="#231c18" stroke-width="5" fill="none"/>`:''}</g>`;
+    }
+    return `<svg viewBox="0 0 760 340" role="img" aria-label="2021 届高二（3）班校友在老榕树下合影">
+    <rect width="760" height="340" fill="#f2e3c6"/><rect y="270" width="760" height="70" fill="#c9b48e"/>
+    <rect x="360" y="80" width="40" height="200" fill="#6b4a33"/><path d="M380 140L300 190M380 150L470 200" stroke="#6b4a33" stroke-width="9"/>
+    <g fill="#3f6d37"><circle cx="380" cy="80" r="95"/><circle cx="270" cy="120" r="70"/><circle cx="500" cy="120" r="72"/><circle cx="200" cy="150" r="45"/><circle cx="570" cy="150" r="48"/></g>
+    <g stroke="#6b4a33" stroke-width="2">${Array.from({length:12},(_,k)=>`<path d="M${300+k*14} 170V${215+(k%3)*12}"/>`).join('')}</g>
+    ${people}
+    <rect x="140" y="20" width="480" height="30" fill="#c81f1a"/><text x="380" y="41" text-anchor="middle" fill="#ffe9a8" font-family="SimHei,sans-serif" font-size="16" letter-spacing="3">2021届高二（3）班 · 一个都不能少</text>
+    <text x="748" y="334" text-anchor="end" font-size="13" fill="#ff8a1e" font-family="'Courier New',monospace" font-weight="bold">'26 11 14</text>
+    </svg>`;
+  };
+
   // 首页轮播的小幅校园照片
   const scenes=[
     ['#cfe0ec','<rect x="30" y="70" width="240" height="110" fill="#c0392f"/><g fill="#f2ece0">'+Array.from({length:24},(_,k)=>`<rect x="${44+(k%8)*28}" y="${84+Math.floor(k/8)*30}" width="16" height="18"/>`).join('')+'</g><rect x="130" y="40" width="40" height="140" fill="#a82d24"/><circle cx="150" cy="62" r="10" fill="#fff"/>','教学楼'],

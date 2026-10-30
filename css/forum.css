@@ -121,3 +121,6 @@ body{margin:0;background:#fff}
 .demo-end{margin:24px 0;padding:22px;text-align:center;background:#1d1414;color:#eadbd6;font:15px/2 SimSun,serif}
 .demo-end h2{font-size:20px;letter-spacing:3px;color:#fff}
 .demo-end .small{font-size:12px;color:#a99}
+.like{margin:4px 10px;color:#d00;font-size:13px}
+.sys-note{margin:14px 0;padding:10px;border:1px dashed #999;background:#f7f7f7;color:#555;font-size:14px}
+.reply.last{border-color:#c00;border-width:2px}

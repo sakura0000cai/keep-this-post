@@ -47,7 +47,7 @@
           <p>　　临川市第七中学始建于 1958 年，是省级示范性普通高级中学。学校占地 126 亩，现有教学班 48 个，在校学生两千余人。校园内一株百年老榕树，见证了一届又一届七中学子的成长。学校秉承“明德、笃学、求真”的校训，坚持“为每一个学生的终身发展奠基”的办学理念，先后获得省文明校园、市平安校园等荣誉称号……</p></div>`,W('about'))}
         <div class="two">
           ${panel('新闻动态',`<ul class="sch-list">${S.list('news').slice(0,7).map(row).join('')}</ul>`,W('list/news'))}
-          ${panel('校园风采',`<ul class="sch-list plain"><li>${a(W('photo/1908'),'2019 第十三届校园文化节')}</li><li>${a(W('gallery'),'2026 秋季田径运动会')}</li><li>${a(W('gallery'),'校园四季 · 老榕树')}</li><li>${a(W('classes'),'班级空间 · 历届班级主页')}</li><li>${a(W('alumni'),'校友之家 · 返校日')}</li></ul>`,W('gallery'))}
+          ${panel('校园风采',`<ul class="sch-list plain">${G.state.timeline==='truth'?`<li>${a(W('photo/2613'),'<b>2026 校友返校日 · 老榕树下的重聚</b>')}</li>`:''}<li>${a(W('photo/1908'),'2019 第十三届校园文化节')}</li><li>${a(W('gallery'),'2026 秋季田径运动会')}</li><li>${a(W('gallery'),'校园四季 · 老榕树')}</li><li>${a(W('classes'),'班级空间 · 历届班级主页')}</li><li>${a(W('alumni'),'校友之家 · 返校日')}</li></ul>`,W('gallery'))}
         </div>
       </div>
     </div>${foot()}</div>`;
@@ -76,9 +76,10 @@
   G.www.article=id=>{
     const x=S.byId(id);
     if(!x)return G.www.notfound();
+    if((id==='1915'||id==='1920')&&G.state.timeline!=='original'&&G.flag('rescued'))G.set('sawChange');
     const list=S.list(x.cat),i=list.indexOf(x),prev=list[i-1],next=list[i+1];
     const name=x.cat==='notice'?'通知公告':'新闻动态';
-    const extra=id==='1908'?`<p style="text-align:center">${a(W('photo/1908'),'【查看文化节合影】')}</p>`:'';
+    const extra=id==='2613'?`<p style="text-align:center">${a(W('photo/2613'),'【查看重聚合影】')}</p>`:id==='1908'?`<p style="text-align:center">${a(W('photo/1908'),'【查看文化节合影】')}</p>`:'';
     return {title:x.title+' - 临川市第七中学',html:page(name,`${a(W('list/'+x.cat),name)} &gt; 正文`,
       `<h3 class="art-title">${esc(x.title)}</h3><div class="art-meta">发布时间：${x.date}　　来源：${x.src}　　点击：${x.hits}${x.archive?'　　<em>[历史存档]</em>':''}</div>
       <div class="art-body">${G.para(x.body)}</div>${extra}
@@ -87,19 +88,29 @@
   };
 
   G.www.gallery=()=>({title:'校园风采 - 临川市第七中学',html:page('校园风采','校园风采',`
-    <div class="albums">
+    <div class="albums">${G.state.timeline==='truth'?`
+      <div class="album">${a(W('photo/2613'),`<div class="pic">${G.art.reunion()}</div>2026 校友返校日 · 2021届高二（3）班`)}<small>2026-11-14 更新</small></div>`:''}
       <div class="album">${a(W('photo/1908'),`<div class="pic">${G.art.groupPhoto('web')}</div>2019 第十三届校园文化节`)}<small>2019-11-15 更新</small></div>
       <div class="album"><div class="pic">${G.art.scene(2)}</div>2026 秋季田径运动会<small>相册整理中</small></div>
       <div class="album"><div class="pic">${G.art.scene(3)}</div>校园四季 · 老榕树<small>2025-04-02 更新</small></div>
       <div class="album"><div class="pic">${G.art.scene(1)}</div>书香七中<small>2026-11-06 更新</small></div>
     </div>`)});
 
-  G.www.photo=()=>{
+  G.www.photo=(id='1908')=>{
+    if(id==='2613'&&G.state.timeline==='truth')return {title:'2021届高二（3）班重聚 - 校园风采',html:page('校园风采',`${a(W('gallery'),'校园风采')} &gt; 2026 校友返校日`,`
+      <h3 class="art-title">七年后，老榕树下</h3>
+      <div class="art-meta">拍摄：2026-11-14（返校日彩排）　　上传：校友会</div>
+      <div class="photo-frame">${G.art.reunion()}</div>
+      <p class="caption">2021 届高二（3）班校友在老榕树下。左起第一排：林知夏、陈默、许清……</p>
+      <p class="caption">${a(W('article/2613'),'相关新闻：明天，老榕树下见')}</p>`)};
+    // 原始时间线里，她在 11 月 15 日被从官网照片里抹去；其他时间线里，这张照片从没被改过
+    const edited=G.state.timeline==='original';
+    const back=edited?S.photoBack:S.photoBack.slice(0,6).concat('林知夏',S.photoBack.slice(6));
     return {title:'第十三届校园文化节 - 校园风采',html:page('校园风采',`${a(W('gallery'),'校园风采')} &gt; 2019 第十三届校园文化节`,`
     <h3 class="art-title">青春 · 回响 —— 高二（3）班合影</h3>
-    <div class="art-meta">拍摄：2019-11-08　　上传：学校办公室　　最后修改：2019-11-15 08:04</div>
-    <div class="photo-frame">${G.art.groupPhoto('web')}</div>
-    <p class="caption">前排左起：${S.photoFront.join('、')}<br>后排左起：${S.photoBack.join('、')}</p>
+    <div class="art-meta">拍摄：2019-11-08　　上传：学校办公室${edited?'　　最后修改：2019-11-15 08:04':''}</div>
+    <div class="photo-frame">${G.art.groupPhoto(edited?'web':'original')}</div>
+    <p class="caption">前排左起：${S.photoFront.join('、')}<br>后排左起：${back.join('、')}</p>
     <p class="caption">合唱《榕树下的约定》获第十三届校园文化节一等奖。</p>
     <p class="caption">${a(W('article/1908'),'相关新闻：我校第十三届校园文化节隆重举行')}</p>`)};
   };
