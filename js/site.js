@@ -15,6 +15,7 @@
     document.title=pg.title;
     tick();
     mod.bind();
+    G.lowres();
   };
 
   // 页面上的游戏内时钟

@@ -1,31 +1,8 @@
-/* 内嵌 SVG 素材：横幅、照片、头像、广告。全部手绘，不引用外部图片。 */
+/* 内嵌 SVG 素材：合照、头像、广告（渲染后由 G.lowres 降成低分辨率 JPEG）。横幅、校徽、轮播是 img/ 下烘焙好的图片。 */
 (function(){
   const A=G.art={};
   // 老照片/扫描件的颗粒感：灰色噪点以正片叠底盖在画面上
   A.grain='<filter id="ng" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#ng)" opacity=".14" style="mix-blend-mode:multiply"/>';
-
-  // 学校网站顶部横幅：校园实景照片（img/banner.jpg，已统一调色）上压红色渐变、校徽和校名
-  A.banner=()=>`<svg viewBox="0 0 1000 190" preserveAspectRatio="xMidYMid slice" role="img" aria-label="临川市第七中学校园横幅">
-  <defs>
-    <linearGradient id="bred" x1="0" x2="1"><stop offset="0" stop-color="#9e1510" stop-opacity=".93"/><stop offset=".36" stop-color="#c0291f" stop-opacity=".72"/><stop offset=".6" stop-color="#c0291f" stop-opacity="0"/></linearGradient>
-    <linearGradient id="bfoot" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#7a0f0b" stop-opacity="0"/><stop offset="1" stop-color="#7a0f0b" stop-opacity=".6"/></linearGradient>
-    <radialGradient id="bflare"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".3" stop-color="#ffe6b0" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-  </defs>
-  <image href="img/banner.jpg" width="1000" height="190" preserveAspectRatio="xMidYMid slice"/>
-  <rect width="1000" height="190" fill="url(#bred)"/>
-  <rect width="1000" height="190" fill="url(#bfoot)"/>
-  <circle cx="930" cy="18" r="60" fill="url(#bflare)"/><circle cx="820" cy="70" r="8" fill="#fff" opacity=".3"/>
-  <g transform="translate(36 30)">
-    <circle r="40" cx="40" cy="40" fill="none" stroke="#fff" stroke-width="3"/>
-    <circle r="32" cx="40" cy="40" fill="none" stroke="#fff" stroke-width="1.2"/>
-    <text x="40" y="52" text-anchor="middle" font-size="34" font-family="KaiTi,STKaiti,serif" fill="#fff" font-weight="bold">七</text>
-    <text x="40" y="70" text-anchor="middle" font-size="8" fill="#fff" font-family="Arial">1958</text>
-  </g>
-  <text x="130" y="72" font-family="STXingkai,'华文行楷',KaiTi,STKaiti,serif" font-size="46" fill="#fff" stroke="#7a0f0b" stroke-width="5" paint-order="stroke" letter-spacing="4">临川市第七中学</text>
-  <text x="134" y="94" font-family="Georgia,serif" font-size="12" fill="#fff" letter-spacing="2.5">LINCHUAN NO.7 MIDDLE SCHOOL</text>
-  <text x="970" y="38" text-anchor="end" font-family="KaiTi,STKaiti,serif" font-size="22" fill="#fff" letter-spacing="6" stroke="#9e1c15" stroke-width="3" paint-order="stroke">省级示范性普通高级中学</text>
-  <text x="840" y="150" text-anchor="middle" font-family="STXingkai,'华文行楷',KaiTi,serif" font-size="40" fill="#fff" stroke="#8a130e" stroke-width="6" paint-order="stroke" letter-spacing="10">明德 笃学 求真</text>
-</svg>`;
 
   // 文化节合照。mode: 'web' 官网发布版（抹去第二排第七人），'original' 原片
   A.groupPhoto=(mode='web')=>{
@@ -48,7 +25,7 @@
     <rect x="0" y="0" width="760" height="230" fill="#d9cdb8"/>
     <g fill="#a8b8c2" stroke="#8b7d68" stroke-width="3"><rect x="30" y="30" width="110" height="80"/><rect x="190" y="30" width="110" height="80"/><rect x="460" y="30" width="110" height="80"/><rect x="620" y="30" width="110" height="80"/></g>
     <rect x="330" y="20" width="100" height="160" fill="#7c5a3c"/><rect x="336" y="26" width="88" height="154" fill="#8c6a4a"/>
-    <rect x="440" y="60" width="64" height="26" fill="#f4efe2" stroke="#6a5a45"/><text x="472" y="74" text-anchor="middle" font-size="10" font-family="SimHei,sans-serif" fill="#333">B203</text><text x="472" y="83" text-anchor="middle" font-size="7" font-family="SimSun,serif" fill="#555">音乐教室</text>
+    <rect x="438" y="52" width="86" height="40" fill="#f4efe2" stroke="#6a5a45" stroke-width="2"/><text x="481" y="74" text-anchor="middle" font-size="20" font-weight="bold" font-family="SimHei,sans-serif" fill="#222">B203</text><text x="481" y="87" text-anchor="middle" font-size="10" font-family="SimSun,serif" fill="#444">音乐教室</text>
     <rect x="120" y="128" width="520" height="34" fill="#c81f1a"/><text x="380" y="151" text-anchor="middle" fill="#ffe9a8" font-family="SimHei,sans-serif" font-size="18" letter-spacing="4">临川七中第十三届校园文化节</text>
     ${people}${fix}
     <rect y="320" width="760" height="20" fill="#b9a98f"/>

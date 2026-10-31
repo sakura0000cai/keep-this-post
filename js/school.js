@@ -5,7 +5,7 @@
 
   function head(){
     return `<div class="sch-top"><span>欢迎访问临川市第七中学网站！</span><span><a>设为首页</a> | <a>加入收藏</a> | <a>联系我们</a> | <a>English</a></span></div>
-    <div class="sch-banner">${G.art.banner()}</div>
+    <div class="sch-banner"><img src="img/banner.jpg" alt="临川市第七中学 · 明德 笃学 求真" width="1000" height="190"></div>
     <div class="sch-nav">${nav.map(([p,t],i)=>(i?'<span>|</span>':'')+a(W(p),t)).join('')}</div>
     <div class="sch-sub"><div class="today">今天是：<b data-clock="long"></b></div>
       <div class="sch-marquee"><b>【最新公告】</b><div><span>校园信息系统升级期间，部分历史栏目以只读镜像形式保留，给您带来的不便敬请谅解。　　★　　2026 年校友返校日报名进行中。　　★　　冬季消防安全检查将于 11 月上旬开展。</span></div></div></div>`;
@@ -14,7 +14,7 @@
     return `<div class="sch-links">
       <span class="lk l1">临川市教育局</span><span class="lk l2">中小学教育资源网</span><span class="lk l3">平安校园</span>
       <span class="lk l4">阳光体育</span><span class="lk l5">七中校友会</span><span class="lk l6">青少年心理援助</span></div>
-    <div class="sch-foot"><div class="fl"><a>关于我们</a>|<a>联系方式</a>|<a>网站地图</a>|<a>校长信箱</a>|<a>管理登录</a></div>
+    <div class="sch-foot"><img class="foot-emblem" src="img/emblem-48.png" alt="校徽" width="48" height="48"><div class="fl"><a>关于我们</a>|<a>联系方式</a>|<a>网站地图</a>|<a>校长信箱</a>|<a>管理登录</a></div>
     地址：临川市文昌路 77 号　邮编：344000　电话：8806 1958<br>
     Copyright &copy; 2008-2026 临川市第七中学 All Rights Reserved　技术支持：临川华网信息技术有限公司<br>
     <small>建议使用 IE6.0 以上浏览器，1024×768 分辨率浏览　|　本站为校史只读镜像，站内学校、人物与事件均属虚构</small></div>`;
