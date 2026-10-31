@@ -6,7 +6,7 @@ body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .sch a{color:#333;text-decoration:none}
 .sch a:visited{color:#555}
 .sch a:hover{color:#c3120f;text-decoration:underline}
-.sch-top{height:24px;display:flex;justify-content:space-between;align-items:center;padding:0 10px;background:linear-gradient(#fff,#ececec);border-bottom:1px solid #d7d7d7;color:#666}
+.sch-top{height:24px;font-size:12px;display:flex;justify-content:space-between;align-items:center;padding:0 10px;background:linear-gradient(#fff,#ececec);border-bottom:1px solid #d7d7d7;color:#666}
 .sch-top span a{margin-left:6px;color:#666}
 .sch-banner{position:relative;overflow:hidden;border-bottom:1px solid #7a0f0b}
 .sch-banner img{display:block;width:1000px;height:190px}
@@ -14,7 +14,7 @@ body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .sch-banner::after{content:"";position:absolute;top:0;left:-25%;width:16%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);animation:shine 7s infinite}
 @keyframes shine{0%,70%{left:-25%}100%{left:110%}}
 .sch-nav{height:34px;display:flex;align-items:stretch;justify-content:center;background:linear-gradient(#ea4038,#c51c16 48%,#ad0e0b 52%,#bd1712);border-top:1px solid #f77;border-bottom:1px solid #6e0a07}
-.sch-nav a{display:flex;align-items:center;padding:0 15px;color:#fff!important;font:bold 14px SimSun,"宋体",serif;letter-spacing:1px}
+.sch-nav a{display:flex;align-items:center;padding:0 15px;color:#fff!important;font:bold 15px SimSun,"宋体",serif;letter-spacing:1px}
 .sch-nav a:hover{background:#8e0b08;text-decoration:none!important;color:#ffe28a!important}
 .sch-nav span{width:2px;margin:9px 0;background:linear-gradient(90deg,#8e0b08 50%,#f06a62 50%);font-size:0}
 .sch-sub{height:28px;display:flex;align-items:center;border-bottom:1px solid #e3c7c4;background:#fdf3f2}
@@ -34,7 +34,7 @@ body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .btn98:active,.sch-search button:active,.login-box button:active{border-style:inset}
 .panel{border:1px solid #d9c9c7;margin-bottom:8px;background:#fff}
 .panel-h{height:27px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 8px;background:linear-gradient(#fff,#f3e4e2);border-bottom:2px solid #c3120f}
-.panel-h b{font:bold 13px SimSun,"宋体",serif;color:#a50d0a}
+.panel-h b{font:bold 14px SimSun,"宋体",serif;color:#a50d0a}
 .panel-h b::before{content:"◆ ";color:#e04a42;font-size:11px}
 .panel-h .more{font:9px Verdana,Arial,sans-serif;color:#fff!important;background:#c3120f;padding:0 3px;line-height:14px}
 .panel-h .more:hover{text-decoration:none!important;background:#8e0b08}
@@ -46,9 +46,12 @@ body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .sch-list li{display:flex;gap:4px;padding:0 0 0 10px;position:relative;border-bottom:1px dotted #d6c6c4;line-height:24px}
 .sch-list li::before{content:"·";position:absolute;left:1px;top:0;color:#c3120f;font-weight:bold}
 .sch-list li a{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.sch-list li span{flex:none;color:#999}
+.sch-list li span{flex:none;color:#999;font:11px Verdana,Arial,sans-serif}
 .sch-list li em{flex:none;font-style:normal;color:#999}
-.sch-list.full li{line-height:28px}
+.sch-list.full li{line-height:28px;font-size:13px}
+.sch-headline{padding:2px 0 6px;margin-bottom:4px;border-bottom:1px dashed #d6c6c4}
+.sch-headline a{display:block;text-align:center;font:bold 16px SimHei,"黑体",sans-serif;color:#c3120f!important;line-height:28px}
+.sch-headline p{margin:0;font-size:12px;line-height:20px;color:#666;text-indent:2em}
 .new{flex:none;color:#f00;font:bold 9px Verdana,sans-serif;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{visibility:hidden}}
 .login-box label{display:flex;align-items:center;margin:4px 0}
@@ -56,6 +59,7 @@ body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .login-box p{margin:6px 0 0;text-align:center}
 .sch-intro{display:flex;gap:12px;align-items:flex-start}
 .sch-intro p{flex:1;margin:0;font-size:12px;line-height:24px}
+.sch-intro p b{font-size:15px;color:#a50d0a}
 .slides{width:300px;flex:none;border:1px solid #ccc;padding:3px;background:#f5f5f5}
 .slide img{display:block;width:292px;height:204px;object-fit:cover}
 .thumbs{display:flex;gap:3px;margin-top:3px}
@@ -72,11 +76,11 @@ body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .sch-foot{padding:8px 0 10px;text-align:center;color:#555;font:12px/22px SimSun,"宋体",serif;background:#f6e9e7;border-top:3px solid #c3120f}
 .foot-emblem{display:block;margin:0 auto 2px}
 .sch-foot .fl a{margin:0 6px;color:#555}
-.sch-foot small{color:#999;font-size:12px}
+.sch-foot small{color:#999;font-size:11px}
 .content{font-size:12px;line-height:24px}
 .content p{margin:4px 0}
-.art-title{margin:10px 0 6px;text-align:center;color:#b10d0b;font:bold 16px SimSun,"宋体",serif}
-.art-meta{text-align:center;color:#888;font-size:12px;background:#f7f2f1;border:1px dashed #e0cfcd;padding:2px 0;margin-bottom:12px}
+.art-title{margin:12px 0 8px;text-align:center;color:#b10d0b;font:bold 20px SimHei,"黑体",sans-serif;line-height:30px}
+.art-meta{text-align:center;color:#888;font-size:11px;background:#f7f2f1;border:1px dashed #e0cfcd;padding:2px 0;margin-bottom:12px}
 .art-meta em{font-style:normal;color:#c3120f}
 .art-body{font-size:14px;line-height:26px}
 .art-body p{text-indent:2em}
@@ -95,5 +99,5 @@ body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .sch-table th,.sch-table td{border:1px solid #d9b5b2;padding:3px 6px;text-align:center}
 .sch-table th{background:#f6dedb;color:#8e0b08}
 .sub-nav{list-style:none;margin:0;padding:0}
-.sub-nav li{border-bottom:1px dotted #ddd;padding:2px 0 2px 6px}
+.sub-nav li{border-bottom:1px dotted #ddd;padding:2px 0 2px 6px;font-size:13px}
 .sub-nav li::before{content:"» ";color:#c3120f}

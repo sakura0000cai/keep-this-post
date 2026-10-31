@@ -21,13 +21,13 @@ body{margin:0;background:#fff}
 .side-links a.hl{color:#fff36b!important}
 .side-links a.odd{color:#ffd0c9!important}
 .side-links i{font-style:normal;color:#fff36b}
-.side-sec{margin:8px 0 2px;font-size:14px;color:#ffe9e6}
+.side-sec{margin:8px 0 2px;font:bold 15px SimSun,"宋体",serif;color:#ffe9e6}
 .side-foot{margin-top:auto;padding:8px 4px;background:#8f1d1d;text-align:center;font-size:12px}
 .side-foot a{color:#fff!important}
 .bbs-main{flex:1;min-width:0;padding:4px 8px 20px}
 .bbs-welcome{display:flex;justify-content:space-between;font-size:12px;color:#555;padding:2px 0 4px}
 .bbs-topbar{display:flex;justify-content:space-between;align-items:center;height:26px;padding:0 6px;background:#cc4b4b;color:#fff;border-top:1px solid #e88;border-bottom:1px solid #933}
-.bbs-topbar b{font:16px "宋体",SimSun,serif}
+.bbs-topbar b{font:bold 18px "宋体",SimSun,serif}
 .bbs-topbar span a{color:#fff!important;margin-left:10px;font-size:14px}
 .bbs-topbar a.y{color:#fff36b!important}
 .bbs-ad{margin:5px 0;border:1px solid #ccc;padding:1px}
@@ -35,13 +35,14 @@ body{margin:0;background:#fff}
 .cls-ad{display:flex;border:1px solid #e3a7a2;background:#fff8f6;margin-bottom:5px}
 .cls-ad>b{width:22px;flex:none;writing-mode:vertical-rl;text-align:center;background:#e9a23b;color:#fff;font:12px SimSun,serif;letter-spacing:2px;padding:4px 0}
 .cls-ad div{display:grid;grid-template-columns:repeat(4,1fr);gap:0 10px;padding:3px 8px;font-size:12px}
+.cls-ad span:nth-child(1),.cls-ad span:nth-child(6){font-weight:bold;font-size:13px}
 .cls-ad span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#d00}
 .bbs-bar{display:flex;justify-content:space-between;font-size:14px;margin:4px 0}
-.bbs-bar b{color:#26c;font-weight:normal}
+.bbs-bar b{color:#26c;font:15px Arial,sans-serif}
 .bbs-bar2,.bbs-tabs{font-size:14px;margin:2px 0}
 .recom{margin:5px 0;border:1px solid #e3a7a2}
-.recom-h{background:#cc4b4b;color:#fff;padding:1px 6px;font-size:14px}
-.recom-b{background:#fdeceb;padding:3px 6px;font-size:14px;line-height:1.9}
+.recom-h{background:#cc4b4b;color:#fff;padding:1px 6px;font:bold 15px SimSun,"宋体",serif}
+.recom-b{background:#fdeceb;padding:3px 6px;font-size:13px;line-height:1.9}
 .hot{color:#f60;font:bold italic 10px Verdana,sans-serif;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{visibility:hidden}}
 .tlist{width:100%;border-collapse:collapse;margin-top:5px;border:1px solid #e0b4b0}
@@ -50,8 +51,8 @@ body{margin:0;background:#fff}
 .tlist tr.alt td{background:#fdf1f0}
 .tlist tr:hover td{background:#ffffcc}
 .tlist td.ico{width:24px;text-align:center}
-.tlist td.n{text-align:center;width:56px;color:#333}
-.tlist td.d{white-space:nowrap;width:118px;text-align:center;font-size:12px}
+.tlist td.n{text-align:center;width:56px;color:#333;font:12px Arial,sans-serif}
+.tlist td.d{white-space:nowrap;width:118px;text-align:center;font:11px Verdana,Arial,sans-serif;color:#555}
 .tlist td em{font-style:normal;color:#d00}
 .tlist td small{color:#999}
 .tlist tr.unread td{font-weight:bold}
@@ -61,14 +62,14 @@ body{margin:0;background:#fff}
 .pin{display:inline-block;padding:0 2px;border:1px solid #900;background:#e33;color:#fff;font:11px/13px SimSun,serif}
 .bbs-pager{margin:6px 0;font-size:12px}
 .bbs-pager small{color:#999}
-.bbs-copy{margin-top:20px;padding-top:6px;border-top:1px solid #e3a7a2;text-align:center;color:#777;font-size:12px}
-.t-title{text-align:center;font:bold 18px "宋体",SimSun,serif;margin:12px 0 4px}
+.bbs-copy{margin-top:20px;padding-top:6px;border-top:1px solid #e3a7a2;text-align:center;color:#777;font-size:11px}
+.t-title{text-align:center;font:bold 22px "宋体",SimSun,serif;margin:14px 0 6px}
 .t-meta{text-align:center;font-size:12px;color:#555;border-bottom:2px solid #cc4b4b;padding-bottom:4px}
 .t-post{border-bottom:1px dashed #d9a9a5;padding-bottom:4px}
-.t-ph{display:flex;gap:2px;align-items:center;background:#fbe6e3;padding:1px 6px;margin-top:8px;font-size:12px;color:#555;border-top:1px solid #f0c8c4}
+.t-ph{display:flex;gap:2px;align-items:center;background:#fbe6e3;padding:1px 6px;margin-top:8px;font-size:13px;color:#555;border-top:1px solid #f0c8c4}
 .t-ph b{color:#d00;margin-right:4px}
 .t-ph span{margin-left:auto;color:#999}
-.t-pb{padding:4px 10px;font-size:14px;line-height:1.85}
+.t-pb{padding:4px 10px;font-size:16px;line-height:1.9}
 .t-pb p{margin:5px 0}
 .t-sig{margin:4px 10px 0;color:#888;font-size:12px}
 .t-sig::before{content:"——————————\A";white-space:pre;color:#ccc}
@@ -120,10 +121,10 @@ body{margin:0;background:#fff}
 .pf-t td{padding:3px 6px;border:1px solid #f0d0cd}
 .moods{margin-top:8px;border:1px solid #e3a7a2}
 .mood{padding:4px 8px;border-bottom:1px dashed #e3c1be;font-size:14px}
-.mood span{color:#888;font-size:12px;margin-right:10px}
+.mood span{color:#888;font:11px Verdana,Arial,sans-serif;margin-right:10px}
 .cache{display:block;color:#a00;font-size:12px}
 .login{max-width:400px;margin:24px auto;border:1px solid #cc4b4b;padding:0 0 10px;font-size:12px;background:#fffafa}
-.login-h{background:linear-gradient(#e06a6a,#c44040);color:#fff;padding:2px 8px;font-size:14px;margin-bottom:8px}
+.login-h{background:linear-gradient(#e06a6a,#c44040);color:#fff;padding:2px 8px;font:bold 15px SimSun,"宋体",serif;margin-bottom:8px}
 .login label,.login p{display:block;margin:8px 16px}
 .login input{width:200px;height:20px}
 .login .feedback{display:block;margin:4px 16px}
