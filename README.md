@@ -30,7 +30,7 @@ dist/
   css/school.css      官网：2010 年前后院校门户，红色主调
   css/forum.css       论坛：2000 年代中文社区版式，红色主调
   js/core.js          存档（两站共享）、游戏内时间、通用工具
-  img/                官网横幅与轮播照片（已调色）及 CREDITS.txt
+  img/                横幅（照片+校徽+校名烘成一张 JPEG）、轮播照片、校徽、网站图标及 CREDITS.txt
   js/art.js           横幅叠加层、合照、广告、头像（内嵌 SVG）
   js/data-school.js   官网文章、班级名单
   js/data-forum.js    论坛用户、版块、帖子、心情、短消息
@@ -39,6 +39,8 @@ dist/
   js/story.js         跨时间回复
   js/site.js          页面入口：路由、时钟、跨标签同步
 ```
+
+横幅、校徽和轮播照片由 `tools/bake.py` 生成（需要 Python + Pillow 和 Windows 自带的隶书、华文行楷字体，原图从 Wikimedia Commons 下载）。合照、广告、头像仍是 SVG，页面渲染后由 `G.lowres` 降成低分辨率 JPEG。
 
 无构建步骤，脚本按顺序以普通 `<script>` 加载，挂在全局 `G` 上。
 

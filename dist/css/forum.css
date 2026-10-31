@@ -109,7 +109,7 @@ body{margin:0;background:#fff}
 .hint-line{color:#888;font-size:12px}
 .hist td{font-size:12px}
 .photo-frame{border:1px solid #bbb;padding:5px;background:#fff;margin:8px 0;box-shadow:3px 3px 0 #ddd}
-.photo-frame svg{display:block;width:100%;filter:saturate(.8) contrast(1.06) sepia(.12)}
+.photo-frame svg,.photo-frame img{display:block;width:100%}
 .caption{color:#555;font-size:12px}
 .profile{width:100%;border:1px solid #e3a7a2;border-collapse:collapse;margin-top:8px}
 .profile td{vertical-align:top;padding:8px}

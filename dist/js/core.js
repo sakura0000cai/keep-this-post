@@ -33,4 +33,19 @@
   G.fb=(form,msg,ok)=>{const el=form.querySelector('.feedback');if(el){el.textContent=msg;el.className='feedback'+(ok?' ok':' bad')}};
   // 宽松比对：去掉空白与标点
   G.norm=s=>String(s||'').replace(/[\s，。！？、,.!?“”"'：:；;（）()《》<>【】\-—_]/g,'').toLowerCase();
+
+  // 手绘的 SVG（合照、广告、头像）渲染后降成低分辨率 JPEG，画质与实拍照片一致
+  const LOWRES=[['.photo-frame svg,.album .pic svg',.6,'saturate(.8) contrast(1.06) sepia(.12)'],['.bbs-ad svg',.6,''],['svg.ava',.5,'']];
+  G.lowres=()=>LOWRES.forEach(([sel,scale,filter])=>document.querySelectorAll(sel).forEach(svg=>{
+    const r=svg.getBoundingClientRect();if(!r.width)return;
+    const w=Math.round(r.width*scale),h=Math.round(r.height*scale),src=new Image();
+    src.onload=()=>{
+      const c=document.createElement('canvas');c.width=w;c.height=h;
+      const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.filter=filter||'none';x.drawImage(src,0,0,w,h);
+      const img=new Image();img.src=c.toDataURL('image/jpeg',.5);img.alt=svg.getAttribute('aria-label')||'';
+      img.className=svg.getAttribute('class')||'';img.style.cssText=`display:block;width:${r.width}px;height:${r.height}px`;
+      svg.replaceWith(img);
+    };
+    src.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(new XMLSerializer().serializeToString(svg));
+  }));
 })();
