@@ -50,7 +50,7 @@
     const rows=list.map((t,i)=>{
       const rep=Math.max(t.posts.length-1,0),odd=t.special==='mystery';
       const cls=t.top?'red':odd?'odd':'';
-      return `<tr class="${i%2?'alt':''}"><td class="ico">${t.top?'📌':'☺'}</td><td class="tt">${t.top?'<em>[置顶]</em>':''}${a(B('thread/'+t.id),esc(t.title),cls)}${odd&&!logged()?' <small>[屏蔽]</small>':''}</td><td>${user(t.author)}</td><td class="n">${odd?0:t.views}</td><td class="n">${rep}</td><td class="d">${t.date.slice(2,16).replace(/^(\d\d)-0?/,'$1-')}</td></tr>`;
+      return `<tr class="${i%2?'alt':''}"><td class="ico">${t.top?'<span class="pin">顶</span>':'<i class="smile"></i>'}</td><td class="tt">${t.top?'<em>[置顶]</em>':''}${a(B('thread/'+t.id),esc(t.title),cls)}${odd&&!logged()?' <small>[屏蔽]</small>':''}</td><td>${user(t.author)}</td><td class="n">${odd?0:t.views}</td><td class="n">${rep}</td><td class="d">${t.date.slice(2,16).replace(/^(\d\d)-0?/,'$1-')}</td></tr>`;
     }).join('');
     const main=`<div class="bbs-ad">${G.art.forumAd()}</div>
       <div class="cls-ad"><b>分类广告</b><div>
@@ -106,9 +106,9 @@
     body+=`<form class="lock" data-form="lock1"><b>第一把锁</b>　${lock1?'<span class="ok">✔ 已打开</span>':`她最后一次在论坛上留下话，是几点几分？（四位数字）<br><input name="v" maxlength="5" placeholder="HHMM"> <button>开锁</button><span class="feedback"></span>`}</form>`;
     if(lock1)body+=`<form class="lock" data-form="lock2"><b>第二把锁</b>　${lock2?'<span class="ok">✔ 已打开</span>':`我们班第一次站上舞台之前，每天放学后去的那间教室。<br><input name="v" maxlength="6" placeholder="教室编号"> <button>开锁</button><span class="feedback"></span>`}</form>`;
     if(lock2)body+=`<div class="attach"><div class="attach-h">附件（4）</div>
-      <div class="file"><b>📷 纸条.jpg</b><div class="paper-note">明天放学，老地方。<br>你的笔记本在我们这儿。<br>一个人来。别告诉老师。</div><small>许清：在知夏抽屉里找到的。“老地方”是哪里，我还没弄清楚。</small></div>
-      <div class="file"><b>💬 群聊截图.png</b><div class="chatlog"><p><b>周予安：</b>明天让她自己来拿，老地方，上次那间</p><p><b>某同学：</b>会不会有点过了</p><p><b>周予安：</b>开个玩笑而已，谁让她到处说</p><p class="cut">（截图到此为止）</p></div></div>
-      <div class="file"><b>📄 时间.txt</b><pre>11.14
+      <div class="file"><b>[图片] 纸条.jpg</b><div class="paper-note">明天放学，老地方。<br>你的笔记本在我们这儿。<br>一个人来。别告诉老师。</div><small>许清：在知夏抽屉里找到的。“老地方”是哪里，我还没弄清楚。</small></div>
+      <div class="file"><b>[图片] 群聊截图.png</b><div class="chatlog"><p><b>周予安：</b>明天让她自己来拿，老地方，上次那间</p><p><b>某同学：</b>会不会有点过了</p><p><b>周予安：</b>开个玩笑而已，谁让她到处说</p><p class="cut">（截图到此为止）</p></div></div>
+      <div class="file"><b>[附件] 时间.txt</b><pre>11.14
 17:05  放学。周予安在走廊跟知夏说了句话。
 17:21  知夏在论坛发了最后一条心情。
 18:05  我在论坛发帖找她。
@@ -117,7 +117,7 @@
 通报写的是“19 时许”。
 他们把时间往后挪了一个多小时，好像那一个多小时不存在。
 通报还说旧实验楼“已停止使用”。可是摄影社每周四都在三楼。</pre></div>
-      <div class="file"><b>📄 给陈默.txt</b><pre>陈默：
+      <div class="file"><b>[附件] 给陈默.txt</b><pre>陈默：
 
 你 13 号半夜发的那条帖子，我一直没想明白。
 你说你不记得发过。可你写了“明天有人会死”。
@@ -171,7 +171,7 @@
     if(!logged())return G.bbs.login('查看相册需要登录。');
     if(u!=='xuqing')return page('相册',`<div class="blocked">${esc(u)} 的相册为空，或未公开。</div>`);
     let main=`<h1 class="t-title">xuqing 的相册 · 2019 文化节</h1>`;
-    if(!flag('album'))main+=`<form class="lock center" data-form="album"><p>🔒 该相册已加密。</p><p>密码提示：<b>合照里，少了谁？</b></p><input name="v" placeholder="请输入密码"> <button>打开</button><div class="feedback"></div></form>`;
+    if(!flag('album'))main+=`<form class="lock center" data-form="album"><p>[加密] 该相册已加密。</p><p>密码提示：<b>合照里，少了谁？</b></p><input name="v" placeholder="请输入密码"> <button>打开</button><div class="feedback"></div></form>`;
     else main+=`<div class="photo-frame">${G.art.groupPhoto('original')}</div>
       <p class="caption">20191108_原片.jpg　　上传：2019-11-09<br>xuqing：全班二十个人。第二排左起第七个，是知夏，她替广播站举着牌子。<br>背后那扇门是 B203，我们排练了两个星期的音乐教室。</p>
       <p class="caption">xuqing（2019-11-16 补充）：官网那张，第二排第七个人没有了。她站的地方被修成了一块墙。</p>`;

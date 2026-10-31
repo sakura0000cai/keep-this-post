@@ -1,21 +1,28 @@
-/* 临川七中官网页面。风格：2010 年前后的高校/中学门户，红色主调。 */
+/* 临川七中官网页面。风格：2008 年前后的中学门户，红色主调。 */
 (function(){
   const {a,esc}=G,S=G.school,W=p=>'/'+p;
   const nav=[['index','首　页'],['about','学校概况'],['list/news','新闻动态'],['list/notice','通知公告'],['teach','教育教学'],['gallery','校园风采'],['classes','班级空间'],['alumni','校友之家']];
 
   function head(){
-    return `<div class="sch-banner">${G.art.banner()}</div>
-    <div class="sch-nav">${nav.map(([p,t],i)=>(i?'<span>|</span>':'')+a(W(p),t)).join('')}</div>`;
+    return `<div class="sch-top"><span>欢迎访问临川市第七中学网站！</span><span><a>设为首页</a> | <a>加入收藏</a> | <a>联系我们</a> | <a>English</a></span></div>
+    <div class="sch-banner">${G.art.banner()}</div>
+    <div class="sch-nav">${nav.map(([p,t],i)=>(i?'<span>|</span>':'')+a(W(p),t)).join('')}</div>
+    <div class="sch-sub"><div class="today">今天是：<b data-clock="long"></b></div>
+      <div class="sch-marquee"><b>【最新公告】</b><div><span>校园信息系统升级期间，部分历史栏目以只读镜像形式保留，给您带来的不便敬请谅解。　　★　　2026 年校友返校日报名进行中。　　★　　冬季消防安全检查将于 11 月上旬开展。</span></div></div></div>`;
   }
   function foot(){
     return `<div class="sch-links">
       <span class="lk l1">临川市教育局</span><span class="lk l2">中小学教育资源网</span><span class="lk l3">平安校园</span>
       <span class="lk l4">阳光体育</span><span class="lk l5">七中校友会</span><span class="lk l6">青少年心理援助</span></div>
-    <div class="sch-foot">地址：临川市文昌路 77 号　　邮编：344000　　电话：8806 1958　　临川市第七中学 版权所有<br>
-    <small>本站为校史只读镜像 · 站内学校、人物与事件均属虚构</small></div>`;
+    <div class="sch-foot"><div class="fl"><a>关于我们</a>|<a>联系方式</a>|<a>网站地图</a>|<a>校长信箱</a>|<a>管理登录</a></div>
+    地址：临川市文昌路 77 号　邮编：344000　电话：8806 1958<br>
+    Copyright &copy; 2008-2026 临川市第七中学 All Rights Reserved　技术支持：临川华网信息技术有限公司<br>
+    <small>建议使用 IE6.0 以上浏览器，1024×768 分辨率浏览　|　本站为校史只读镜像，站内学校、人物与事件均属虚构</small></div>`;
   }
-  const panel=(title,body,more,cls='')=>`<div class="panel ${cls}"><div class="panel-h"><b>${title}</b>${more?a(more,'更多&gt;&gt;','more'):''}</div><div class="panel-b">${body}</div></div>`;
-  const row=x=>`<li>${a(W('article/'+x.id),esc(x.title))}<span>${x.date.slice(5)}</span></li>`;
+  const panel=(title,body,more,cls='')=>`<div class="panel ${cls}"><div class="panel-h"><b>${title}</b>${more?a(more,'more&gt;&gt;','more'):''}</div><div class="panel-b">${body}</div></div>`;
+  // 最近两周的条目挂一个闪烁的 NEW
+  const isNew=x=>x.date>='2026-11-01';
+  const row=x=>`<li>${a(W('article/'+x.id),esc(x.title))}${isNew(x)?'<i class="new">NEW</i>':''}<span>[${x.date.slice(5)}]</span></li>`;
   const rowFull=x=>`<li>${a(W('article/'+x.id),esc(x.title))}${x.archive?'<em>[存档]</em>':''}<span>${x.date}</span></li>`;
 
   function searchBox(q=''){
@@ -29,7 +36,7 @@
   }
   function page(title,crumb,content,sub){
     const side=sub?panel(sub[0],`<ul class="sub-nav">${sub[1].map(([p,t])=>`<li>${a(W(p),t)}</li>`).join('')}</ul>`,''):'';
-    return `<div class="sch">${head()}<div class="sch-body"><div class="sch-left"><div class="sch-date" data-clock="long"></div>${searchBox()}${side}${leftCommon()}</div>
+    return `<div class="sch">${head()}<div class="sch-body"><div class="sch-left">${searchBox()}${side}${leftCommon()}</div>
     <div class="sch-main"><div class="panel"><div class="panel-h"><b>${title}</b><span class="crumb">当前位置：${a(W('index'),'首页')} &gt; ${crumb}</span></div><div class="panel-b content">${content}</div></div></div></div>${foot()}</div>`;
   }
   const newsSub=['新闻中心',[['list/news','新闻动态'],['list/notice','通知公告']]];
@@ -38,10 +45,11 @@
   G.www.index=()=>{
     const thumbs=Array.from({length:G.art.sceneCount},(_,i)=>`<button class="thumb${i?'':' on'}" data-slide="${i}">${G.art.scene(i)}</button>`).join('');
     const html=`<div class="sch">${head()}
-    <div class="sch-marquee"><b>【公告】</b><div><span>校园信息系统升级期间，部分历史栏目以只读镜像形式保留，给您带来的不便敬请谅解。　　★　　2026 年校友返校日报名进行中。　　★　　冬季消防安全检查将于 11 月上旬开展。</span></div></div>
     <div class="sch-body">
-      <div class="sch-left"><div class="sch-date" data-clock="long"></div>${searchBox()}${leftCommon()}
-        <div class="sch-counter">您是本站第 <b>0 2 1 3 4 7 8</b> 位访客</div></div>
+      <div class="sch-left">${searchBox()}
+        ${panel('用户登录',`<form class="login-box" onsubmit="return false"><label>用户名：<input></label><label>密　码：<input type="password"></label><label>身　份：<select><option>教师</option><option>学生</option><option>家长</option></select></label><p><button>登录</button> <button type="reset">重置</button></p></form>`,'')}
+        ${leftCommon()}
+        <div class="sch-counter">您是本站第<br><b>0213478</b><br>位访客</div></div>
       <div class="sch-main">
         ${panel('学校简介',`<div class="sch-intro"><div class="slides"><div class="slide" id="slide">${G.art.scene(0)}</div><div class="thumbs">${thumbs}</div></div>
           <p>　　临川市第七中学始建于 1958 年，是省级示范性普通高级中学。学校占地 126 亩，现有教学班 48 个，在校学生两千余人。校园内一株百年老榕树，见证了一届又一届七中学子的成长。学校秉承“明德、笃学、求真”的校训，坚持“为每一个学生的终身发展奠基”的办学理念，先后获得省文明校园、市平安校园等荣誉称号……</p></div>`,W('about'))}

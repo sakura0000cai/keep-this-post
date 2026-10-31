@@ -1,80 +1,102 @@
-/* 学校官网：仿 2010 年前后的院校门户，红色主调 */
-body{margin:0;background:#fff}
+/* 学校官网：仿 2008 年前后的中学门户——宋体 12px、渐变图片条、表格感排版，红色主调 */
+html{scrollbar-color:#c3120f #f3e3e1}
+body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M0 6L6 0' stroke='%23d6cdc0' stroke-width='1'/%3E%3C/svg%3E")}
 *{box-sizing:border-box}
-.sch{width:1000px;margin:0 auto;background:#fff;font:12px/1.9 SimSun,"宋体",serif;color:#333}
+.sch{width:1000px;margin:0 auto;background:#fff;border:1px solid #b9ada0;border-top:0;outline:4px solid #f3eee7;font:12px/22px SimSun,"宋体",serif;color:#333}
 .sch a{color:#333;text-decoration:none}
+.sch a:visited{color:#555}
 .sch a:hover{color:#c3120f;text-decoration:underline}
+.sch-top{height:24px;display:flex;justify-content:space-between;align-items:center;padding:0 10px;background:linear-gradient(#fff,#ececec);border-bottom:1px solid #d7d7d7;color:#666}
+.sch-top span a{margin-left:6px;color:#666}
+.sch-banner{position:relative;overflow:hidden;border-bottom:1px solid #7a0f0b}
 .sch-banner svg{display:block;width:1000px;height:190px}
-.sch-nav{height:50px;display:flex;align-items:center;justify-content:center;gap:2px;background:linear-gradient(#f0554c,#d0201a 50%,#b30f0c 51%,#c4211b);border-bottom:3px solid #8e0b08}
-.sch-nav a{color:#fff;font:bold 17px "Microsoft YaHei",SimHei,sans-serif;padding:0 13px;text-shadow:0 1px 1px #7a0907;letter-spacing:1px}
-.sch-nav a:hover{color:#ffe28a;text-decoration:none}
-.sch-nav span{color:#ffd1cd;font-size:15px}
-.sch-marquee{display:flex;height:28px;align-items:center;border:1px solid #e5c3c0;border-top:0;background:#fff7f6;overflow:hidden}
-.sch-marquee b{flex:none;padding:0 8px;color:#c3120f}
-.sch-marquee div{flex:1;overflow:hidden;white-space:nowrap}
-.sch-marquee span{display:inline-block;padding-left:100%;animation:mq 28s linear infinite}
+/* Flash 横幅的扫光 */
+.sch-banner::after{content:"";position:absolute;top:0;left:-25%;width:16%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);animation:shine 7s infinite}
+@keyframes shine{0%,70%{left:-25%}100%{left:110%}}
+.sch-nav{height:34px;display:flex;align-items:stretch;justify-content:center;background:linear-gradient(#ea4038,#c51c16 48%,#ad0e0b 52%,#bd1712);border-top:1px solid #f77;border-bottom:1px solid #6e0a07}
+.sch-nav a{display:flex;align-items:center;padding:0 15px;color:#fff!important;font:bold 14px SimSun,"宋体",serif;letter-spacing:1px}
+.sch-nav a:hover{background:#8e0b08;text-decoration:none!important;color:#ffe28a!important}
+.sch-nav span{width:2px;margin:9px 0;background:linear-gradient(90deg,#8e0b08 50%,#f06a62 50%);font-size:0}
+.sch-sub{height:28px;display:flex;align-items:center;border-bottom:1px solid #e3c7c4;background:#fdf3f2}
+.sch-sub .today{flex:none;padding:0 10px;color:#8e0b08;border-right:1px dotted #d9a9a5}
+.sch-sub .today b{font-weight:normal;color:#333}
+.sch-marquee{flex:1;display:flex;overflow:hidden;white-space:nowrap;color:#555}
+.sch-marquee b{flex:none;padding:0 6px 0 10px;color:#c3120f}
+.sch-marquee div{flex:1;overflow:hidden}
+.sch-marquee span{display:inline-block;padding-left:100%;animation:mq 30s linear infinite}
 @keyframes mq{to{transform:translateX(-100%)}}
-.sch-body{display:flex;gap:12px;padding:10px 0 4px}
-.sch-left{width:272px;flex:none}
+.sch-body{display:flex;gap:8px;padding:8px}
+.sch-left{width:236px;flex:none}
 .sch-main{flex:1;min-width:0}
-.sch-date{font-size:13px;margin:2px 0 4px}
-.sch-search{display:flex;gap:6px;margin-bottom:8px}
-.sch-search input{flex:1;height:26px;border:1px solid #9a9a9a;padding:0 4px 0 24px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='6.5' cy='6.5' r='4.5' fill='%23e8f3e0' stroke='%23777' stroke-width='1.6'/%3E%3Cpath d='M10 10l4 4' stroke='%23c3120f' stroke-width='2.2'/%3E%3C/svg%3E") 4px center no-repeat}
-.sch-search button{height:26px;padding:0 10px;border:1px solid #9a9a9a;background:linear-gradient(#fff,#ddd);font:12px SimSun,serif;letter-spacing:3px}
-.panel{border:1px solid #d6d6d6;margin-bottom:10px;background:#fff}
-.panel-h{height:34px;display:flex;align-items:stretch;justify-content:space-between;border-top:3px solid #c3120f;border-bottom:1px solid #dcdcdc;background:linear-gradient(#fdfdfd,#ececec)}
-.panel-h b{display:flex;align-items:center;gap:8px;padding:0 34px 0 10px;background:linear-gradient(90deg,#fde8e6,#fff 80%);color:#b10d0b;font:bold 14px "Microsoft YaHei",SimHei,sans-serif;clip-path:polygon(0 0,86% 0,100% 100%,0 100%)}
-.panel-h b::before{content:"";width:8px;height:15px;border-radius:4px;background:linear-gradient(#ff6d63,#b10d0b);box-shadow:inset 0 0 0 1px #8e0b08}
-.panel-h .more,.panel-h .crumb{align-self:center;margin-right:12px;font-size:12px;color:#333}
-.panel-b{padding:10px 12px}
-.panel.tall .panel-b{min-height:220px}
-.panel-b select{display:block;width:180px;margin:10px 8px;font:12px SimSun,serif}
+.sch-search{display:flex;gap:4px;margin:0 0 8px;padding:6px;border:1px solid #d9c9c7;background:#f8f1f0}
+.sch-search input{flex:1;min-width:0;height:20px;border:1px solid #7f9db9;padding:0 2px;font:12px SimSun,serif}
+.btn98,.sch-search button,.login-box button{height:20px;padding:0 8px;border:2px outset #f0f0f0;background:#e7e7e7;font:12px SimSun,"宋体",serif;color:#000;cursor:pointer}
+.btn98:active,.sch-search button:active,.login-box button:active{border-style:inset}
+.panel{border:1px solid #d9c9c7;margin-bottom:8px;background:#fff}
+.panel-h{height:27px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 8px;background:linear-gradient(#fff,#f3e4e2);border-bottom:2px solid #c3120f}
+.panel-h b{font:bold 13px SimSun,"宋体",serif;color:#a50d0a}
+.panel-h b::before{content:"◆ ";color:#e04a42;font-size:11px}
+.panel-h .more{font:9px Verdana,Arial,sans-serif;color:#fff!important;background:#c3120f;padding:0 3px;line-height:14px}
+.panel-h .more:hover{text-decoration:none!important;background:#8e0b08}
+.panel-h .crumb{font-size:12px;color:#666}
+.panel-b{padding:6px 8px}
+.panel.tall .panel-b{min-height:190px}
+.panel-b select{display:block;width:100%;margin:6px 0;font:12px SimSun,serif}
 .sch-list{list-style:none;margin:0;padding:0}
-.sch-list li{display:flex;gap:6px;padding:3px 0 3px 14px;position:relative;line-height:22px}
-.sch-list li::before{content:"";position:absolute;left:2px;top:10px;border:4px solid transparent;border-left:5px solid #aaa}
+.sch-list li{display:flex;gap:4px;padding:0 0 0 10px;position:relative;border-bottom:1px dotted #d6c6c4;line-height:24px}
+.sch-list li::before{content:"·";position:absolute;left:1px;top:0;color:#c3120f;font-weight:bold}
 .sch-list li a{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.sch-list li span{flex:none;color:#c3120f}
+.sch-list li span{flex:none;color:#999}
 .sch-list li em{flex:none;font-style:normal;color:#999}
-.sch-list.full li{border-bottom:1px dashed #e2e2e2;padding-top:6px;padding-bottom:6px}
-.sch-counter{text-align:center;color:#666;padding:6px 0}
-.sch-counter b{color:#c3120f;font-family:"Courier New",monospace;letter-spacing:1px}
-.sch-intro{display:flex;gap:18px;align-items:flex-start}
-.sch-intro p{flex:1;margin:4px 0;font-size:14px;line-height:2.1}
-.slides{width:320px;flex:none}
-.slide svg{display:block;width:320px;height:224px}
+.sch-list.full li{line-height:28px}
+.new{flex:none;color:#f00;font:bold 9px Verdana,sans-serif;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{visibility:hidden}}
+.login-box label{display:flex;align-items:center;margin:4px 0}
+.login-box label input,.login-box label select{flex:1;height:19px;border:1px solid #7f9db9;font:12px SimSun,serif}
+.login-box p{margin:6px 0 0;text-align:center}
+.sch-counter{margin:4px 0 8px;text-align:center;color:#666}
+.sch-counter b{display:inline-block;margin-top:3px;padding:1px 3px;background:#000;border:2px inset #999;color:#f33;font:bold 14px "Courier New",monospace;letter-spacing:4px}
+.sch-intro{display:flex;gap:12px;align-items:flex-start}
+.sch-intro p{flex:1;margin:0;font-size:12px;line-height:24px}
+.slides{width:300px;flex:none;border:1px solid #ccc;padding:3px;background:#f5f5f5}
+.slide img{display:block;width:292px;height:204px;object-fit:cover}
 .thumbs{display:flex;gap:3px;margin-top:3px}
-.thumb{padding:0;border:2px solid #fff;background:none;width:77px;height:50px;overflow:hidden}
-.thumb.on{border-color:#e53935}
-.thumb svg{width:100%;height:100%;display:block}
-.two{display:flex;gap:10px}
+.thumb{padding:0;border:2px solid #fff;background:none;width:70px;height:46px;overflow:hidden;cursor:pointer}
+.thumb.on{border-color:#f60}
+.thumb img{width:100%;height:100%;display:block;object-fit:cover}
+.two{display:flex;gap:8px}
 .two>.panel{flex:1;min-width:0}
 .sch-list.plain li span{display:none}
-.sch-links{display:flex;justify-content:space-between;gap:10px;padding:10px 0}
-.lk{flex:1;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #bbb;color:#fff;font:bold 14px "Microsoft YaHei",SimHei,sans-serif;text-shadow:0 1px 2px rgba(0,0,0,.4)}
-.l1{background:linear-gradient(135deg,#b71c1c,#e57373)}.l2{background:linear-gradient(135deg,#1e5aa8,#64a0e0)}.l3{background:linear-gradient(135deg,#2e7d32,#9ccc65)}
-.l4{background:linear-gradient(135deg,#ef6c00,#ffca28)}.l5{background:linear-gradient(135deg,#8e0b08,#d84315)}.l6{background:linear-gradient(135deg,#6a1b9a,#ba68c8)}
-.sch-foot{padding:14px 0;text-align:center;color:#fff;font:14px/1.9 "Microsoft YaHei",sans-serif;background:linear-gradient(#e2433b,#b5130f);border-top:3px solid #8e0b08}
-.sch-foot small{color:#ffd6d2;font-size:12px}
-.content{font-size:14px;line-height:2}
-.content p{margin:6px 0}
-.art-title{margin:8px 0;text-align:center;color:#b10d0b;font:bold 20px "Microsoft YaHei",SimHei,sans-serif}
-.art-meta{text-align:center;color:#888;font-size:12px;border-bottom:1px dashed #ccc;padding-bottom:6px;margin-bottom:12px}
+.sch-links{display:flex;justify-content:space-between;gap:6px;padding:4px 8px 8px}
+.lk{flex:1;height:40px;display:flex;align-items:center;justify-content:center;border:2px outset #ddd;color:#fff;font:bold 13px SimHei,"黑体",sans-serif;text-shadow:1px 1px 0 rgba(0,0,0,.5)}
+.l1{background:linear-gradient(#e57373,#b71c1c)}.l2{background:linear-gradient(#64a0e0,#1e5aa8)}.l3{background:linear-gradient(#9ccc65,#2e7d32)}
+.l4{background:linear-gradient(#ffca28,#ef6c00)}.l5{background:linear-gradient(#d84315,#8e0b08)}.l6{background:linear-gradient(#ba68c8,#6a1b9a)}
+.sch-foot{padding:8px 0 10px;text-align:center;color:#555;font:12px/22px SimSun,"宋体",serif;background:#f6e9e7;border-top:3px solid #c3120f}
+.sch-foot .fl a{margin:0 6px;color:#555}
+.sch-foot small{color:#999;font-size:12px}
+.content{font-size:12px;line-height:24px}
+.content p{margin:4px 0}
+.art-title{margin:10px 0 6px;text-align:center;color:#b10d0b;font:bold 16px SimSun,"宋体",serif}
+.art-meta{text-align:center;color:#888;font-size:12px;background:#f7f2f1;border:1px dashed #e0cfcd;padding:2px 0;margin-bottom:12px}
 .art-meta em{font-style:normal;color:#c3120f}
+.art-body{font-size:14px;line-height:26px}
 .art-body p{text-indent:2em}
-.art-tools{text-align:right;margin:20px 0 8px;font-size:12px}
-.art-nav{border-top:1px solid #e5e5e5;padding-top:8px;font-size:12px}
-.pager{margin-top:12px;text-align:center;font-size:12px;color:#666}
-.albums{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.album{text-align:center;font-size:13px}
-.album .pic{border:1px solid #ccc;padding:4px;background:#fafafa;height:180px;overflow:hidden;margin-bottom:4px}
-.album .pic svg{width:100%;height:100%;display:block}
+.art-tools{text-align:right;margin:16px 0 6px}
+.art-nav{border-top:1px dotted #ccc;padding-top:6px}
+.pager{margin-top:10px;text-align:center;color:#666}
+.albums{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.album{text-align:center}
+.album .pic{border:1px solid #bbb;padding:3px;background:#fff;height:170px;overflow:hidden;margin-bottom:3px;box-shadow:2px 2px 0 #ddd}
+.album .pic svg,.album .pic img{width:100%;height:100%;display:block;object-fit:cover}
 .album small{display:block;color:#999}
-.photo-frame{border:1px solid #bbb;padding:6px;background:#f6f6f6;margin:8px 0}
+.photo-frame{border:1px solid #bbb;padding:5px;background:#fff;margin:8px 0;box-shadow:3px 3px 0 #ddd}
 .photo-frame svg{display:block;width:100%}
-.caption{color:#666;font-size:12px;line-height:1.9}
-.sch-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
-.sch-table th,.sch-table td{border:1px solid #d9b5b2;padding:4px 8px;text-align:center}
-.sch-table th{background:#f8e2e0;color:#8e0b08}
+/* 手绘的合照套一层和实景照片（img/ 下已调色）相近的偏黄、发灰滤镜 */
+.photo-frame svg,.album svg{filter:saturate(.8) contrast(1.06) sepia(.12)}
+.caption{color:#666;font-size:12px;line-height:22px}
+.sch-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+.sch-table th,.sch-table td{border:1px solid #d9b5b2;padding:3px 6px;text-align:center}
+.sch-table th{background:#f6dedb;color:#8e0b08}
 .sub-nav{list-style:none;margin:0;padding:0}
-.sub-nav li{border-bottom:1px dashed #ddd;padding:5px 0 5px 10px;font-size:13px}
+.sub-nav li{border-bottom:1px dotted #ddd;padding:2px 0 2px 6px}
 .sub-nav li::before{content:"» ";color:#c3120f}
