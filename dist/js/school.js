@@ -48,8 +48,7 @@
     <div class="sch-body">
       <div class="sch-left">${searchBox()}
         ${panel('用户登录',`<form class="login-box" onsubmit="return false"><label>用户名：<input></label><label>密　码：<input type="password"></label><label>身　份：<select><option>教师</option><option>学生</option><option>家长</option></select></label><p><button>登录</button> <button type="reset">重置</button></p></form>`,'')}
-        ${leftCommon()}
-        <div class="sch-counter">您是本站第<br><b>0213478</b><br>位访客</div></div>
+        ${leftCommon()}</div>
       <div class="sch-main">
         ${panel('学校简介',`<div class="sch-intro"><div class="slides"><div class="slide" id="slide">${G.art.scene(0)}</div><div class="thumbs">${thumbs}</div></div>
           <p>　　临川市第七中学始建于 1958 年，是省级示范性普通高级中学。学校占地 126 亩，现有教学班 48 个，在校学生两千余人。校园内一株百年老榕树，见证了一届又一届七中学子的成长。学校秉承“明德、笃学、求真”的校训，坚持“为每一个学生的终身发展奠基”的办学理念，先后获得省文明校园、市平安校园等荣誉称号……</p></div>`,W('about'))}

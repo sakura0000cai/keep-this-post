@@ -54,8 +54,6 @@ body{margin:0;background:#e6dfd5 url("data:image/svg+xml,%3Csvg xmlns='http://ww
 .login-box label{display:flex;align-items:center;margin:4px 0}
 .login-box label input,.login-box label select{flex:1;height:19px;border:1px solid #7f9db9;font:12px SimSun,serif}
 .login-box p{margin:6px 0 0;text-align:center}
-.sch-counter{margin:4px 0 8px;text-align:center;color:#666}
-.sch-counter b{display:inline-block;margin-top:3px;padding:1px 3px;background:#000;border:2px inset #999;color:#f33;font:bold 14px "Courier New",monospace;letter-spacing:4px}
 .sch-intro{display:flex;gap:12px;align-items:flex-start}
 .sch-intro p{flex:1;margin:0;font-size:12px;line-height:24px}
 .slides{width:300px;flex:none;border:1px solid #ccc;padding:3px;background:#f5f5f5}
