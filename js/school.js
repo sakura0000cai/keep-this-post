@@ -25,6 +25,8 @@
   const row=x=>`<li>${a(W('article/'+x.id),esc(x.title))}${isNew(x)?'<i class="new">NEW</i>':''}<span>[${x.date.slice(5)}]</span></li>`;
   const rowFull=x=>`<li>${a(W('article/'+x.id),esc(x.title))}${x.archive?'<em>[存档]</em>':''}<span>${x.date}</span></li>`;
 
+  // 新闻栏的头条：大号红字标题 + 一行摘要
+  const headline=x=>`<div class="sch-headline">${a(W('article/'+x.id),esc(x.title))}<p>${esc(x.body.replace(/\s+/g,'').slice(0,46))}……</p></div>`;
   function searchBox(q=''){
     return `<form class="sch-search" data-form="www-search"><input name="q" value="${esc(q)}" aria-label="站内搜索"><button>搜 索</button></form>`;
   }
@@ -51,9 +53,9 @@
         ${leftCommon()}</div>
       <div class="sch-main">
         ${panel('学校简介',`<div class="sch-intro"><div class="slides"><div class="slide" id="slide">${G.art.scene(0)}</div><div class="thumbs">${thumbs}</div></div>
-          <p>　　临川市第七中学始建于 1958 年，是省级示范性普通高级中学。学校占地 126 亩，现有教学班 48 个，在校学生两千余人。校园内一株百年老榕树，见证了一届又一届七中学子的成长。学校秉承“明德、笃学、求真”的校训，坚持“为每一个学生的终身发展奠基”的办学理念，先后获得省文明校园、市平安校园等荣誉称号……</p></div>`,W('about'))}
+          <p>　　<b>临川市第七中学</b>始建于 1958 年，是省级示范性普通高级中学。学校占地 126 亩，现有教学班 48 个，在校学生两千余人。校园内一株百年老榕树，见证了一届又一届七中学子的成长。学校秉承“明德、笃学、求真”的校训，坚持“为每一个学生的终身发展奠基”的办学理念，先后获得省文明校园、市平安校园等荣誉称号……</p></div>`,W('about'))}
         <div class="two">
-          ${panel('新闻动态',`<ul class="sch-list">${S.list('news').slice(0,7).map(row).join('')}</ul>`,W('list/news'))}
+          ${panel('新闻动态',headline(S.list('news')[0])+`<ul class="sch-list">${S.list('news').slice(1,6).map(row).join('')}</ul>`,W('list/news'))}
           ${panel('校园风采',`<ul class="sch-list plain">${G.state.timeline==='truth'?`<li>${a(W('photo/2613'),'<b>2026 校友返校日 · 老榕树下的重聚</b>')}</li>`:''}<li>${a(W('photo/1908'),'2019 第十三届校园文化节')}</li><li>${a(W('gallery'),'2026 秋季田径运动会')}</li><li>${a(W('gallery'),'校园四季 · 老榕树')}</li><li>${a(W('classes'),'班级空间 · 历届班级主页')}</li><li>${a(W('alumni'),'校友之家 · 返校日')}</li></ul>`,W('gallery'))}
         </div>
       </div>
